@@ -1,6 +1,0 @@
-@SaballutsWeatherApi_HostAddress = http://localhost:5076
-
-GET {{SaballutsWeatherApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
