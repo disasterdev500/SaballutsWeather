@@ -6,4 +6,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
+    <Reference Include="SaballutsWeatherDomain">
+        <HintPath>../SaballutsWeatherDomain/bin/Debug/net8.0/SaballutsWeatherDomain.dll</HintPath>
+    </Reference>
+    <Reference Include="SaballutsWeatherPersistance">
+        <HintPath>../SaballutsWeatherPersistance/bin/Debug/net8.0/SaballutsWeatherPersistance.dll</HintPath>
+    </Reference>
+    <Reference Include="SaballutsWeatherUtilities">
+        <HintPath>../SaballutsWeatherUtilities/bin/Debug/net8.0/SaballutsWeatherUtilities.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
