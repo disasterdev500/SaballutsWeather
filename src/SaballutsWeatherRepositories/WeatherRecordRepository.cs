@@ -2,7 +2,7 @@ using AutoMapper;
 using SaballutsWeatherDomain.Models;
 using SaballutsWeatherPersistance.DbModels;
 
-namespace SaballutsWeatherPersistance.Repositories;
+namespace SaballutsWeatherRepositories.Repositories;
 
 public class WeatherRecordsRepository(SaballutsWeatherContext context, IMapper mapper) : IWeatherRecordsRepository
 {

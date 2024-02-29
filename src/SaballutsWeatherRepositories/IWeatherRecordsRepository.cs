@@ -1,6 +1,6 @@
 using SaballutsWeatherDomain.Models;
 
-namespace SaballutsWeatherPersistance.Repositories;
+namespace SaballutsWeatherRepositories.Repositories;
 
 public interface IWeatherRecordsRepository
 {
