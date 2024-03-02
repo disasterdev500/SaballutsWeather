@@ -12,4 +12,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SaballutsWeatherApplication\SaballutsWeatherApplication.csproj" />
+    <ProjectReference Include="..\SaballutsWeatherUtilities\SaballutsWeatherUtilities.csproj" />
+    <ProjectReference Include="..\SaballutsWeatherRepositories\SaballutsWeatherRepositories.csproj" />
+    <ProjectReference Include="..\SaballutsWeatherPersistance\SaballutsWeatherPersistance.csproj" />
+  </ItemGroup>
+
 </Project>
