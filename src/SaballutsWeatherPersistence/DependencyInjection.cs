@@ -12,6 +12,8 @@ public static class DependencyInjection
         services.AddDbContext<SaballutsWeatherContext>(
             options => options.UseNpgsql(configuration.GetConnectionString("SaballutsWeatherConnection")));
 
+        services.AddHealthChecks().AddDbContextCheck<SaballutsWeatherContext>();
+
         return services;
     }
 }
