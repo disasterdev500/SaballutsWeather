@@ -13,5 +13,14 @@ public class MappingProfile : Profile
 
         CreateMap<DailyWeatherStats, DbDailyWeatherStats>();
         CreateMap<DbDailyWeatherStats, DailyWeatherStats>();
+
+        CreateMap<WeeklyWeatherStats, DbWeeklyWeatherStats>();
+        CreateMap<DbWeeklyWeatherStats, WeeklyWeatherStats>();
+
+        CreateMap<MonthlyWeatherStats, DbMonthlyWeatherStats>();
+        CreateMap<DbMonthlyWeatherStats, MonthlyWeatherStats>();
+
+        CreateMap<YearlyWeatherStats, DbYearlyWeatherStats>();
+        CreateMap<DbYearlyWeatherStats, YearlyWeatherStats>();
     }
 }
