@@ -2,6 +2,8 @@ using SaballutsWeatherApplication;
 using SaballutsWeatherUtilities;
 using SaballutsWeatherRepositories;
 using SaballutsWeatherPersistence;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
 
 internal class Program
 {
@@ -34,6 +36,10 @@ internal class Program
 
         app.UseHttpsRedirection();
 
+        app.MapHealthChecks("/healthz", new HealthCheckOptions
+        {
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse // improve healthchecks response
+        });
         app.MapControllers();
 
         app.Run();
