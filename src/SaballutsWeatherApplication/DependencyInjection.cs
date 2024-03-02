@@ -8,7 +8,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<IWeatherRecordGetter, WeatherRecordGetter>();
+        services.AddScoped<IWeatherRecordService, WeatherRecordService>();
 
         return services;
     }

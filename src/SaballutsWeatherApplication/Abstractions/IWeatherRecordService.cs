@@ -2,7 +2,7 @@ using SaballutsWeatherDomain.Models;
 
 namespace SaballutsWeatherApplication.Abstractions;
 
-public interface IWeatherRecordGetter
+public interface IWeatherRecordService
 {
     Task<WeatherRecord> GetByIDAsync(DateTime timestamp);
 }
