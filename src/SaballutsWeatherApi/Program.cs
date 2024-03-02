@@ -1,7 +1,7 @@
 using SaballutsWeatherApplication;
 using SaballutsWeatherUtilities;
 using SaballutsWeatherRepositories;
-using SaballutsWeatherPersistance;
+using SaballutsWeatherPersistence;
 
 internal class Program
 {
@@ -18,7 +18,7 @@ internal class Program
         builder.Services.AddApplication();
         builder.Services.AddUtilities();
         builder.Services.AddRepositories();
-        builder.Services.AddPersistance(builder.Configuration);
+        builder.Services.AddPersistence(builder.Configuration);
 
 
         builder.Services.AddControllers();

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace SaballutsWeatherPersistance.DbModels;
+namespace SaballutsWeatherPersistence.DbModels;
 
 public class UtcDateTimeConverter : ValueConverter<DateTime, DateTime>
 {

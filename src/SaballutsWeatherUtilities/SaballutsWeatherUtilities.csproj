@@ -8,12 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <Reference Include="SaballutsWeatherPersistance">
-        <HintPath>../SaballutsWeatherPersistance/bin/Debug/net8.0/SaballutsWeatherPersistance.dll</HintPath>
-    </Reference>
-    <Reference Include="SaballutsWeatherDomain">
-        <HintPath>../SaballutsWeatherDomain/bin/Debug/net8.0/SaballutsWeatherDomain.dll</HintPath>
-    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SaballutsWeatherDomain\SaballutsWeatherDomain.csproj" />
+    <ProjectReference Include="..\SaballutsWeatherPersistence\SaballutsWeatherPersistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace SaballutsWeatherPersistance.DbModels;
+namespace SaballutsWeatherPersistence.DbModels;
 
 public class SaballutsWeatherContext(DbContextOptions<SaballutsWeatherContext> options) : DbContext(options)
 {

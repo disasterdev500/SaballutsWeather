@@ -1,5 +1,5 @@
 using AutoMapper;
-using SaballutsWeatherPersistance.DbModels;
+using SaballutsWeatherPersistence.DbModels;
 using SaballutsWeatherDomain.Models;
 
 namespace SaballutsWeatherUtilities.Mappers;
