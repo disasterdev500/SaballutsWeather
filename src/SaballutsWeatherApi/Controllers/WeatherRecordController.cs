@@ -7,9 +7,9 @@ namespace SaballutsWeatherApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class WeatherRecordController(IWeatherRecordGetter weatherRecordGetterService) : ControllerBase
+public class WeatherRecordController(IWeatherRecordService weatherRecordGetterService) : ControllerBase
 {
-    private readonly IWeatherRecordGetter _weatherRecordGetterService = weatherRecordGetterService;
+    private readonly IWeatherRecordService _weatherRecordGetterService = weatherRecordGetterService;
 
     [HttpGet("{timestamp}")]
     public async Task<ActionResult<WeatherRecord>> GetWeatherRecordAsync(DateTime timestamp)
