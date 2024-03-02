@@ -1,6 +1,6 @@
 using AutoMapper;
 using SaballutsWeatherDomain.Models;
-using SaballutsWeatherPersistance.DbModels;
+using SaballutsWeatherPersistence.DbModels;
 using SaballutsWeatherRepositories.Abstractions;
 
 namespace SaballutsWeatherRepositories.Repositories;

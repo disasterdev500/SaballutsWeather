@@ -16,7 +16,8 @@
     <ProjectReference Include="..\SaballutsWeatherApplication\SaballutsWeatherApplication.csproj" />
     <ProjectReference Include="..\SaballutsWeatherUtilities\SaballutsWeatherUtilities.csproj" />
     <ProjectReference Include="..\SaballutsWeatherRepositories\SaballutsWeatherRepositories.csproj" />
-    <ProjectReference Include="..\SaballutsWeatherPersistance\SaballutsWeatherPersistance.csproj" />
+    <ProjectReference Include="..\SaballutsWeatherPersistence\SaballutsWeatherPersistence.csproj" />
+    <ProjectReference Include="..\SaballutsWeatherPersistence\SaballutsWeatherPersistence.csproj" />
   </ItemGroup>
 
 </Project>
