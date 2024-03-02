@@ -1,6 +1,6 @@
 using SaballutsWeatherApplication.Abstractions;
 using SaballutsWeatherDomain.Models;
-using SaballutsWeatherRepositories.Repositories;
+using SaballutsWeatherRepositories.Abstractions;
 
 
 namespace SaballutsWeatherApplication.Behaviors;
