@@ -26,8 +26,8 @@ public class DailyWeatherStatsRepository(SaballutsWeatherContext context, IMappe
     private List<DailyWeatherStats> Search(Expression<Func<DbDailyWeatherStats, bool>> filter)
             => _mapper.Map<List<DailyWeatherStats>>(_context.DailyWeatherStats.Where(filter).ToList());
 
-    public async Task AddAsync(DailyWeatherStats weatherRecord)
-            => await _context.DailyWeatherStats.AddAsync(_mapper.Map<DbDailyWeatherStats>(weatherRecord));
+    public async Task AddAsync(DailyWeatherStats dailyWeatherStats)
+            => await _context.DailyWeatherStats.AddAsync(_mapper.Map<DbDailyWeatherStats>(dailyWeatherStats));
 
     public async Task SaveAsync()
             => await _context.SaveChangesAsync();
