@@ -6,6 +6,6 @@ public interface IWeeklyWeatherStatsRepository
 {
     Task<WeeklyWeatherStats> GetById(DateTime id);
     List<WeeklyWeatherStats> GetByIntervalTime(DateTime initial, DateTime final);
-    Task AddAsync(WeeklyWeatherStats dailyWeatherStats);
+    Task AddAsync(WeeklyWeatherStats weeklyWeatherStats);
     Task SaveAsync();
 }
