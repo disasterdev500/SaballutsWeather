@@ -1,0 +1,6 @@
+@SaballutsWeatherJobs_HostAddress = http://localhost:5234
+
+GET {{SaballutsWeatherJobs_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
