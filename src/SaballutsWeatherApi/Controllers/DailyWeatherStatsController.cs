@@ -12,7 +12,7 @@ public class DailyWeatherStatsController(IDailyWeatherStatsService dailyWeatherS
     private readonly IDailyWeatherStatsService _dailyWeatherStatsService = dailyWeatherStatsService;
 
     [HttpGet("{timestamp}")]
-    public async Task<ActionResult<DailyWeatherStats>> GetWeatherRecordAsync(DateTime timestamp)
+    public async Task<ActionResult<DailyWeatherStats>> GetDailyWeatherStatsAsync(DateTime timestamp)
     {
         DailyWeatherStats? stats = null;
         try
