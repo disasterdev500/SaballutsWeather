@@ -13,7 +13,7 @@ public class MonthlyWeatherStatsRepository(SaballutsWeatherContext context, IMap
 
     public async Task<MonthlyWeatherStats> GetById(DateTime id)
     {
-        var records = await _context.WeeklyWeatherStats.FindAsync(id);
+        var records = await _context.MonthlyWeatherStats.FindAsync(id);
         return _mapper.Map<MonthlyWeatherStats>(records);
     }
 
