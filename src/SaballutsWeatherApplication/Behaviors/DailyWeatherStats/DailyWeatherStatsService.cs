@@ -14,6 +14,11 @@ public class DailyWeatherStatsService(IDailyWeatherStatsRepository dailyWeatherS
 
     public async Task<Result<DailyWeatherStats>> CreateAsync(DateTime date)
     {
+        if (date.Date >= DateTime.UtcNow.Date)
+        {
+            throw new ArgumentException();
+        }
+
         var initialDate = date.Date;
 
         var stats = await _dailyWeatherStatsRepository.GetById(date.Date);
@@ -50,7 +55,7 @@ public class DailyWeatherStatsService(IDailyWeatherStatsRepository dailyWeatherS
         }
         else
         {
-            initialDate = stats.Date.AddDays(1);
+            initialDate = stats.Date.Date.AddDays(1);
         }
 
         var lastRecord = await _weatherRecordsRepository.GetLastAsync();

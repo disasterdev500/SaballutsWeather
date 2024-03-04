@@ -15,6 +15,11 @@ public class WeeklyWeatherStatsService(IWeeklyWeatherStatsRepository weeklyWeath
 
     public async Task<Result<WeeklyWeatherStats>> CreateAsync(DateTime date)
     {
+        if (date.Date >= DateTime.UtcNow.GetFirstDayOfWeek())
+        {
+            throw new ArgumentException();
+        }
+
         var firstDayOfWeek = date.GetFirstDayOfWeek();
         var lastDayOfWeek = firstDayOfWeek.AddDays(7);
 
@@ -55,7 +60,7 @@ public class WeeklyWeatherStatsService(IWeeklyWeatherStatsRepository weeklyWeath
             return Result.Fail<WeeklyWeatherStats>("Last daily weather stats not found");
         }
 
-        var finalDate = lastDailyStats.Date.Date;
+        var finalDate = lastDailyStats.Date.GetFirstDayOfWeek();
 
         while (initialDate < finalDate)
         {
