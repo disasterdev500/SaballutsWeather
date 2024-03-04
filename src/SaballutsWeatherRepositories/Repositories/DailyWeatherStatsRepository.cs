@@ -18,20 +18,26 @@ public class DailyWeatherStatsRepository(SaballutsWeatherContext context, IMappe
         return _mapper.Map<DailyWeatherStats>(records);
     }
 
-    public async Task<DailyWeatherStats> GetLast()
+    public async Task<DailyWeatherStats> GetFirstAsync()
+    {
+        var records = await _context.DailyWeatherStats.OrderBy(d => d.Date).FirstAsync();
+        return _mapper.Map<DailyWeatherStats>(records);
+    }
+
+    public async Task<DailyWeatherStats> GetLastAsync()
     {
         var records = await _context.DailyWeatherStats.OrderByDescending(d => d.Date).FirstAsync();
         return _mapper.Map<DailyWeatherStats>(records);
     }
 
-    public List<DailyWeatherStats> GetByIntervalTime(DateTime initial, DateTime final)
+    public async Task<List<DailyWeatherStats>> GetByIntervalTimeAsync(DateTime initial, DateTime final)
     {
         Expression<Func<DbDailyWeatherStats, bool>> filter = dbRecord => dbRecord.Date >= initial && dbRecord.Date < final;
-        return Search(filter);
+        return await SearchAsync(filter);
     }
 
-    private List<DailyWeatherStats> Search(Expression<Func<DbDailyWeatherStats, bool>> filter)
-            => _mapper.Map<List<DailyWeatherStats>>(_context.DailyWeatherStats.Where(filter).ToList());
+    private async Task<List<DailyWeatherStats>> SearchAsync(Expression<Func<DbDailyWeatherStats, bool>> filter)
+            => _mapper.Map<List<DailyWeatherStats>>(await _context.DailyWeatherStats.Where(filter).ToListAsync());
 
     public async Task AddAsync(DailyWeatherStats dailyWeatherStats)
             => await _context.DailyWeatherStats.AddAsync(_mapper.Map<DbDailyWeatherStats>(dailyWeatherStats));
