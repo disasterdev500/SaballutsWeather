@@ -8,75 +8,75 @@ public class MonthlyWeatherStats
     {
 
     }
-    public MonthlyWeatherStats(List<WeeklyWeatherStats> weeklyWeatherStats)
+    public MonthlyWeatherStats(List<DailyWeatherStats> dailyWeatherStats)
     {
-        if (weeklyWeatherStats == null || weeklyWeatherStats.Count == 0)
+        if (dailyWeatherStats == null || dailyWeatherStats.Count == 0)
         {
-            throw new ArgumentException("Weekly weather stats list is null or empty.");
+            throw new ArgumentException("Daily weather stats list is null or empty.");
         }
 
-        Date = weeklyWeatherStats[0].Date.GetFirstDayOfMonth();
+        Date = dailyWeatherStats[0].Date.GetFirstDayOfMonth();
 
-        MaxIndoorTemperatureC = weeklyWeatherStats.Max(r => r.MaxIndoorTemperatureC);
-        MinIndoorTemperatureC = weeklyWeatherStats.Min(r => r.MinIndoorTemperatureC);
-        AverageIndoorTemperatureC = weeklyWeatherStats.Average(r => r.AverageIndoorTemperatureC);
+        MaxIndoorTemperatureC = dailyWeatherStats.Max(r => r.MaxIndoorTemperatureC);
+        MinIndoorTemperatureC = dailyWeatherStats.Min(r => r.MinIndoorTemperatureC);
+        AverageIndoorTemperatureC = dailyWeatherStats.Average(r => r.AverageIndoorTemperatureC);
 
-        MaxIndoorHumidityPct = weeklyWeatherStats.Max(r => r.MaxIndoorHumidityPct);
-        MinIndoorHumidityPct = weeklyWeatherStats.Min(r => r.MinIndoorHumidityPct);
-        AverageIndoorHumidityPct = Convert.ToInt32(weeklyWeatherStats.Average(r => r.AverageIndoorHumidityPct));
+        MaxIndoorHumidityPct = dailyWeatherStats.Max(r => r.MaxIndoorHumidityPct);
+        MinIndoorHumidityPct = dailyWeatherStats.Min(r => r.MinIndoorHumidityPct);
+        AverageIndoorHumidityPct = Convert.ToInt32(dailyWeatherStats.Average(r => r.AverageIndoorHumidityPct));
 
-        MaxOutdoorTemperatureC = weeklyWeatherStats.Max(r => r.MaxOutdoorTemperatureC);
-        MinOutdoorTemperatureC = weeklyWeatherStats.Min(r => r.MinOutdoorTemperatureC);
-        AverageOutdoorTemperatureC = weeklyWeatherStats.Average(r => r.AverageOutdoorTemperatureC);
+        MaxOutdoorTemperatureC = dailyWeatherStats.Max(r => r.MaxOutdoorTemperatureC);
+        MinOutdoorTemperatureC = dailyWeatherStats.Min(r => r.MinOutdoorTemperatureC);
+        AverageOutdoorTemperatureC = dailyWeatherStats.Average(r => r.AverageOutdoorTemperatureC);
 
-        MaxOutdoorHumidityPct = weeklyWeatherStats.Max(r => r.MaxOutdoorHumidityPct);
-        MinOutdoorHumidityPct = weeklyWeatherStats.Min(r => r.MinOutdoorHumidityPct);
-        AverageOutdoorHumidityPct = Convert.ToInt32(weeklyWeatherStats.Average(r => r.AverageOutdoorHumidityPct));
+        MaxOutdoorHumidityPct = dailyWeatherStats.Max(r => r.MaxOutdoorHumidityPct);
+        MinOutdoorHumidityPct = dailyWeatherStats.Min(r => r.MinOutdoorHumidityPct);
+        AverageOutdoorHumidityPct = Convert.ToInt32(dailyWeatherStats.Average(r => r.AverageOutdoorHumidityPct));
 
-        DewPointC = weeklyWeatherStats.Average(r => r.DewPointC);
+        DewPointC = dailyWeatherStats.Average(r => r.DewPointC);
 
-        MaxThermalSensationC = weeklyWeatherStats.Max(r => r.MaxThermalSensationC);
-        MinThermalSensationC = weeklyWeatherStats.Min(r => r.MinThermalSensationC);
-        AverageThermalSensationC = weeklyWeatherStats.Average(r => r.AverageThermalSensationC);
+        MaxThermalSensationC = dailyWeatherStats.Max(r => r.MaxThermalSensationC);
+        MinThermalSensationC = dailyWeatherStats.Min(r => r.MinThermalSensationC);
+        AverageThermalSensationC = dailyWeatherStats.Average(r => r.AverageThermalSensationC);
 
-        MaxWindSpeedKmH = weeklyWeatherStats.Max(r => r.MaxWindSpeedKmH);
-        MinWindSpeedKmH = weeklyWeatherStats.Min(r => r.MinWindSpeedKmH);
-        AverageWindSpeedKmH = weeklyWeatherStats.Average(r => r.AverageWindSpeedKmH);
+        MaxWindSpeedKmH = dailyWeatherStats.Max(r => r.MaxWindSpeedKmH);
+        MinWindSpeedKmH = dailyWeatherStats.Min(r => r.MinWindSpeedKmH);
+        AverageWindSpeedKmH = dailyWeatherStats.Average(r => r.AverageWindSpeedKmH);
 
-        MaxGustSpeedKmH = weeklyWeatherStats.Max(r => r.MaxGustSpeedKmH);
-        MinGustSpeedKmH = weeklyWeatherStats.Min(r => r.MinGustSpeedKmH);
-        AverageGustSpeedKmH = weeklyWeatherStats.Average(r => r.AverageGustSpeedKmH);
+        MaxGustSpeedKmH = dailyWeatherStats.Max(r => r.MaxGustSpeedKmH);
+        MinGustSpeedKmH = dailyWeatherStats.Min(r => r.MinGustSpeedKmH);
+        AverageGustSpeedKmH = dailyWeatherStats.Average(r => r.AverageGustSpeedKmH);
 
-        WindDirection = weeklyWeatherStats.GroupBy(r => r.WindDirection)
+        WindDirection = dailyWeatherStats.GroupBy(r => r.WindDirection)
             .OrderByDescending(group => group.Count())
             .First()
             .First().WindDirection;
 
-        MaxAbsolutePressureHpa = weeklyWeatherStats.Max(r => r.MaxAbsolutePressureHpa);
-        MinAbsolutePressureHpa = weeklyWeatherStats.Min(r => r.MinAbsolutePressureHpa);
-        AverageAbsolutePressureHpa = weeklyWeatherStats.Average(r => r.AverageAbsolutePressureHpa);
+        MaxAbsolutePressureHpa = dailyWeatherStats.Max(r => r.MaxAbsolutePressureHpa);
+        MinAbsolutePressureHpa = dailyWeatherStats.Min(r => r.MinAbsolutePressureHpa);
+        AverageAbsolutePressureHpa = dailyWeatherStats.Average(r => r.AverageAbsolutePressureHpa);
 
-        MaxRelativePressureHpa = weeklyWeatherStats.Max(r => r.MaxRelativePressureHpa);
-        MinRelativePressureHpa = weeklyWeatherStats.Min(r => r.MinRelativePressureHpa);
-        AverageRelativePressureHpa = weeklyWeatherStats.Average(r => r.AverageRelativePressureHpa);
+        MaxRelativePressureHpa = dailyWeatherStats.Max(r => r.MaxRelativePressureHpa);
+        MinRelativePressureHpa = dailyWeatherStats.Min(r => r.MinRelativePressureHpa);
+        AverageRelativePressureHpa = dailyWeatherStats.Average(r => r.AverageRelativePressureHpa);
 
-        MaxSolarRadiationWm2 = weeklyWeatherStats.Max(r => r.MaxSolarRadiationWm2);
-        MinSolarRadiationWm2 = weeklyWeatherStats.Min(r => r.MinSolarRadiationWm2);
-        AverageSolarRadiationWm2 = weeklyWeatherStats.Average(r => r.AverageSolarRadiationWm2);
+        MaxSolarRadiationWm2 = dailyWeatherStats.Max(r => r.MaxSolarRadiationWm2);
+        MinSolarRadiationWm2 = dailyWeatherStats.Min(r => r.MinSolarRadiationWm2);
+        AverageSolarRadiationWm2 = dailyWeatherStats.Average(r => r.AverageSolarRadiationWm2);
 
-        MaxUVI = weeklyWeatherStats.Max(r => r.MaxUVI);
-        MinUVI = weeklyWeatherStats.Min(r => r.MinUVI);
-        AverageUVI = Convert.ToInt32(weeklyWeatherStats.Average(r => r.AverageUVI));
+        MaxUVI = dailyWeatherStats.Max(r => r.MaxUVI);
+        MinUVI = dailyWeatherStats.Min(r => r.MinUVI);
+        AverageUVI = Convert.ToInt32(dailyWeatherStats.Average(r => r.AverageUVI));
 
-        MaxRainPerHourMm = weeklyWeatherStats.Max(r => r.MaxRainPerHourMm);
-        MinRainPerHourMm = weeklyWeatherStats.Min(r => r.MinRainPerHourMm);
-        AverageRainPerHourMm = weeklyWeatherStats.Average(r => r.AverageRainPerHourMm);
+        MaxRainPerHourMm = dailyWeatherStats.Max(r => r.MaxRainPerHourMm);
+        MinRainPerHourMm = dailyWeatherStats.Min(r => r.MinRainPerHourMm);
+        AverageRainPerHourMm = dailyWeatherStats.Average(r => r.AverageRainPerHourMm);
 
-        MaxRainEpisodeMm = weeklyWeatherStats.Max(r => r.MaxRainEpisodeMm);
-        MinRainEpisodeMm = weeklyWeatherStats.Min(r => r.MinRainEpisodeMm);
-        AverageRainEpisodeMm = weeklyWeatherStats.Average(r => r.AverageRainEpisodeMm);
+        MaxRainEpisodeMm = dailyWeatherStats.Max(r => r.MaxRainEpisodeMm);
+        MinRainEpisodeMm = dailyWeatherStats.Min(r => r.MinRainEpisodeMm);
+        AverageRainEpisodeMm = dailyWeatherStats.Average(r => r.AverageRainEpisodeMm);
 
-        AccumulatedRainMm = weeklyWeatherStats.Sum(r => r.AccumulatedRainMm);
+        AccumulatedRainMm = dailyWeatherStats.Sum(r => r.AccumulatedRainMm);
     }
 
     public DateTime Date { get; set; }
