@@ -15,6 +15,11 @@ public class YearlyWeatherStatsService(IYearlyWeatherStatsRepository yearlyWeath
 
     public async Task<Result<YearlyWeatherStats>> CreateAsync(DateTime date)
     {
+        if (date.Date >= DateTime.UtcNow.GetFirstDayOfYear())
+        {
+            throw new ArgumentException();
+        }
+
         var firstDayOfYear = date.GetFirstDayOfYear();
 
         var monthlylyStats = await _monthlyWeatherStatsRepository.GetByIntervalTimeAsync(firstDayOfYear, firstDayOfYear.AddYears(1));
@@ -54,7 +59,7 @@ public class YearlyWeatherStatsService(IYearlyWeatherStatsRepository yearlyWeath
             return Result.Fail<WeeklyWeatherStats>("Last monthly weather stats not found");
         }
 
-        var finalDate = lastMonthlyStats.Date.Date;
+        var finalDate = lastMonthlyStats.Date.GetFirstDayOfYear();
 
         while (initialDate < finalDate)
         {
