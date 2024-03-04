@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SaballutsWeatherDomain.Models;
 using SaballutsWeatherPersistence.DbModels;
 using SaballutsWeatherRepositories.Abstractions;
@@ -17,14 +18,26 @@ public class MonthlyWeatherStatsRepository(SaballutsWeatherContext context, IMap
         return _mapper.Map<MonthlyWeatherStats>(records);
     }
 
-    public List<MonthlyWeatherStats> GetByIntervalTime(DateTime initial, DateTime final)
+    public async Task<List<MonthlyWeatherStats>> GetByIntervalTimeAsync(DateTime initial, DateTime final)
     {
         Expression<Func<DbMonthlyWeatherStats, bool>> filter = dbRecord => dbRecord.Date >= initial && dbRecord.Date < final;
-        return Search(filter);
+        return await SearchAsync(filter);
     }
 
-    private List<MonthlyWeatherStats> Search(Expression<Func<DbMonthlyWeatherStats, bool>> filter)
-            => _mapper.Map<List<MonthlyWeatherStats>>(_context.MonthlyWeatherStats.Where(filter).ToList());
+    public async Task<MonthlyWeatherStats> GetFirstAsync()
+    {
+        var records = await _context.MonthlyWeatherStats.OrderBy(d => d.Date).FirstAsync();
+        return _mapper.Map<MonthlyWeatherStats>(records);
+    }
+
+    public async Task<MonthlyWeatherStats> GetLastAsync()
+    {
+        var records = await _context.MonthlyWeatherStats.OrderByDescending(d => d.Date).FirstAsync();
+        return _mapper.Map<MonthlyWeatherStats>(records);
+    }
+
+    private async Task<List<MonthlyWeatherStats>> SearchAsync(Expression<Func<DbMonthlyWeatherStats, bool>> filter)
+            => _mapper.Map<List<MonthlyWeatherStats>>(await _context.MonthlyWeatherStats.Where(filter).ToListAsync());
 
     public async Task AddAsync(MonthlyWeatherStats monthlyWeatherStats)
             => await _context.MonthlyWeatherStats.AddAsync(_mapper.Map<DbMonthlyWeatherStats>(monthlyWeatherStats));
