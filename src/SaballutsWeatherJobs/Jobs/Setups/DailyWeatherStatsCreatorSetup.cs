@@ -11,7 +11,7 @@ public class DailyWeatherStatsCreatorSetup : IConfigureOptions<QuartzOptions>
 
         options.AddJob<DailyWeatherStatsCreator>(JobBuilder => JobBuilder.WithIdentity(key))
             .AddTrigger(trigger => trigger.ForJob(key)
-            .WithSimpleSchedule(schedule => schedule.WithIntervalInSeconds(10).RepeatForever())
+            .WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(5).RepeatForever())
         );
     }
 }
