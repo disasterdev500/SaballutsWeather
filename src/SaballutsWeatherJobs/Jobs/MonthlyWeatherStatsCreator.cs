@@ -1,12 +1,12 @@
 using Quartz;
-using SaballutsWeatherApplication.Behaviors;
+using SaballutsWeatherApplication.Abstractions;
 
 namespace SaballutsWeatherJobs.Jobs;
 
 [DisallowConcurrentExecution]
-public class MonthlyWeatherStatsCreator(MonthlyWeatherStatsService monthlyWeatherStatsService) : IJob
+public class MonthlyWeatherStatsCreator(IMonthlyWeatherStatsService monthlyWeatherStatsService) : IJob
 {
-    private readonly MonthlyWeatherStatsService _monthlyWeatherStatsService = monthlyWeatherStatsService;
+    private readonly IMonthlyWeatherStatsService _monthlyWeatherStatsService = monthlyWeatherStatsService;
     public async Task Execute(IJobExecutionContext context)
     {
         try
@@ -15,11 +15,13 @@ public class MonthlyWeatherStatsCreator(MonthlyWeatherStatsService monthlyWeathe
             if (createResult.IsFailure)
             {
                 System.Console.WriteLine($"{DateTime.UtcNow}: Error in Job {context.JobDetail.JobType}. Error: {createResult.Error}");
+                return;
             }
         }
         catch (Exception e)
         {
             System.Console.WriteLine($"{DateTime.UtcNow}: Error in Job {context.JobDetail.JobType}. Error: Unexpected error. Exception: {e}");
+            return;
         }
         System.Console.WriteLine($"{DateTime.UtcNow}: Job {context.JobDetail.JobType} finished successfully");
     }
