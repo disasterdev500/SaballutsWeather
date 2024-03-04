@@ -21,6 +21,9 @@ internal class Program
         builder.Services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
 
         builder.Services.ConfigureOptions<DailyWeatherStatsCreatorSetup>();
+        builder.Services.ConfigureOptions<WeeklyWeatherStatsCreatorSetup>();
+        builder.Services.ConfigureOptions<MonthlyWeatherStatsCreatorSetup>();
+        builder.Services.ConfigureOptions<YearlyWeatherStatsCreatorSetup>();
 
         // Saballut's Weather services
         builder.Services.AddApplication();
