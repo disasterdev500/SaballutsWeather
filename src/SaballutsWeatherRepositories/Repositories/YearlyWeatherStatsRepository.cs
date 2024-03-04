@@ -21,7 +21,7 @@ public class YearlyWeatherStatsRepository(SaballutsWeatherContext context, IMapp
     public async Task<List<YearlyWeatherStats>> GetByIntervalTimeAsync(DateTime initial, DateTime final)
     {
         Expression<Func<DbYearlyWeatherStats, bool>> filter = dbRecord => dbRecord.Date >= initial && dbRecord.Date < final;
-        return await Search(filter);
+        return await SearchAsync(filter);
     }
 
     public async Task<YearlyWeatherStats> GetLastAsync()
@@ -30,7 +30,7 @@ public class YearlyWeatherStatsRepository(SaballutsWeatherContext context, IMapp
         return _mapper.Map<YearlyWeatherStats>(records);
     }
 
-    private async Task<List<YearlyWeatherStats>> Search(Expression<Func<DbYearlyWeatherStats, bool>> filter)
+    private async Task<List<YearlyWeatherStats>> SearchAsync(Expression<Func<DbYearlyWeatherStats, bool>> filter)
             => _mapper.Map<List<YearlyWeatherStats>>(await _context.YearlyWeatherStats.Where(filter).ToListAsync());
 
     public async Task AddAsync(YearlyWeatherStats yearlyWeatherStats)
