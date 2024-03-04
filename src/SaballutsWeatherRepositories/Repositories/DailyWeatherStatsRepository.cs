@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SaballutsWeatherDomain.Models;
 using SaballutsWeatherPersistence.DbModels;
 using SaballutsWeatherRepositories.Abstractions;
@@ -14,6 +15,12 @@ public class DailyWeatherStatsRepository(SaballutsWeatherContext context, IMappe
     public async Task<DailyWeatherStats> GetById(DateTime id)
     {
         var records = await _context.DailyWeatherStats.FindAsync(id);
+        return _mapper.Map<DailyWeatherStats>(records);
+    }
+
+    public async Task<DailyWeatherStats> GetLast()
+    {
+        var records = await _context.DailyWeatherStats.OrderByDescending(d => d.Date).FirstAsync();
         return _mapper.Map<DailyWeatherStats>(records);
     }
 
