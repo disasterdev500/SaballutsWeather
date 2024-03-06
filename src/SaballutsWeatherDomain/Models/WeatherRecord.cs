@@ -6,54 +6,54 @@ public class WeatherRecord
 {
     public DateTime Date { get; set; }
 
-    public double IndoorTemperatureC { get; set; }
-    public int IndoorHumidityPct { get; set; }
-    public double OutdoorTemperatureC { get; set; }
-    public int OutdoorHumidityPct { get; set; }
+    public double IndoorTemperature { get; set; }
+    public int IndoorHumidity { get; set; }
+    public double OutdoorTemperature { get; set; }
+    public int OutdoorHumidity { get; set; }
 
-    public double DewPointC { get; set; }
+    public double DewPoint { get; set; }
 
-    public double ThermalSensationC { get; set; }
+    public double ThermalSensation { get; set; }
 
-    public double WindSpeedKmH { get; set; }
-    public double GustSpeedKmH { get; set; }
+    public double WindSpeed { get; set; }
+    public double GustSpeed { get; set; }
     public int WindDirection { get; set; }
 
-    public double AbsolutePressureHpa { get; set; }
-    public double RelativePressureHpa { get; set; }
+    public double AbsolutePressure { get; set; }
+    public double RelativePressure { get; set; }
 
-    public double SolarRadiationWm2 { get; set; }
+    public double SolarRadiation { get; set; }
     public int UVI { get; set; }
 
-    public double RainPerHourMm { get; set; }
-    public double RainEpisodeMm { get; set; }
+    public double RainPerHour { get; set; }
+    public double RainEpisode { get; set; }
 
-    public double RainPerDayMm { get; set; }
-    public double RainPerWeekMm { get; set; }
-    public double RainPerMonthMm { get; set; }
-    public double RainPerYearMm { get; set; }
+    public double RainPerDay { get; set; }
+    public double RainPerWeek { get; set; }
+    public double RainPerMonth { get; set; }
+    public double RainPerYear { get; set; }
 
     public override string ToString()
     {
         return $"Date: {Date}, " +
-            $"IndoorTemperature: {IndoorTemperatureC}°C, " +
-            $"IndoorHumidity: {IndoorHumidityPct}%, " +
-            $"OutdoorTemperature: {OutdoorTemperatureC}°C, " +
-            $"OutdoorHumidity: {OutdoorHumidityPct}%, " +
-            $"DewPoint: {DewPointC}°C, " +
-            $"ThermalSensation: {ThermalSensationC}°C, " +
-            $"WindSpeed: {WindSpeedKmH} km/h, " +
-            $"GustSpeed: {GustSpeedKmH} km/h, " +
+            $"IndoorTemperature: {IndoorTemperature}°C(degree Celsius), " +
+            $"IndoorHumidity: {IndoorHumidity}%(percentage), " +
+            $"OutdoorTemperature: {OutdoorTemperature}°C(degree Celsius), " +
+            $"OutdoorHumidity: {OutdoorHumidity}%(percentage), " +
+            $"DewPoint: {DewPoint}°C(degree Celsius), " +
+            $"ThermalSensation: {ThermalSensation}°C(degree Celsius), " +
+            $"WindSpeed: {WindSpeed} km/h (Kilometres per hour), " +
+            $"GustSpeed: {GustSpeed} km/h (Kilometres per hour), " +
             $"WindDirection: {WindDirection}°, " +
-            $"AbsolutePressure: {AbsolutePressureHpa} hPa, " +
-            $"RelativePressure: {RelativePressureHpa} hPa, " +
-            $"SolarRadiation: {SolarRadiationWm2} W/m², " +
-            $"UVI: {UVI}, " +
-            $"RainPerHour: {RainPerHourMm} mm, " +
-            $"RainEpisode: {RainEpisodeMm} mm, " +
-            $"RainPerDay: {RainPerDayMm} mm, " +
-            $"RainPerWeek: {RainPerWeekMm} mm, " +
-            $"RainPerMonth: {RainPerMonthMm} mm, " +
-            $"RainPerYear: {RainPerYearMm} mm";
+            $"AbsolutePressure: {AbsolutePressure} hPa (Hectopascal), " +
+            $"RelativePressure: {RelativePressure} hPa (Hectopascal), " +
+            $"SolarRadiation: {SolarRadiation} W/m²(watts per square metre), " +
+            $"UVI: {UVI} (Ultra Violet Radiation Index ), " +
+            $"RainPerHour: {RainPerHour} mm(milliliter), " +
+            $"RainEpisode: {RainEpisode} mm(milliliter), " +
+            $"RainPerDay: {RainPerDay} mm(milliliter), " +
+            $"RainPerWeek: {RainPerWeek} mm(milliliter), " +
+            $"RainPerMonth: {RainPerMonth} mm(milliliter), " +
+            $"RainPerYear: {RainPerYear} mm(milliliter)";
     }
 }
