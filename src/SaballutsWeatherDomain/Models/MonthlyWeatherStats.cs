@@ -15,175 +15,231 @@ public class MonthlyWeatherStats
             throw new ArgumentException("Daily weather stats list is null or empty.");
         }
 
-        Date = dailyWeatherStats[0].Date.GetFirstDayOfMonth();
+        Id = dailyWeatherStats[0].Id.GetFirstDayOfYear();
 
-        MaxIndoorTemperatureC = dailyWeatherStats.Max(r => r.MaxIndoorTemperatureC);
-        MinIndoorTemperatureC = dailyWeatherStats.Min(r => r.MinIndoorTemperatureC);
-        AverageIndoorTemperatureC = dailyWeatherStats.Average(r => r.AverageIndoorTemperatureC);
+        MaxIndoorTemperature = dailyWeatherStats.Max(r => r.MaxIndoorTemperature);
+        MaxIndoorTemperatureAt = dailyWeatherStats.OrderByDescending(r => r.MaxIndoorTemperature).First().MaxIndoorTemperatureAt;
+        MinIndoorTemperature = dailyWeatherStats.Min(r => r.MinIndoorTemperature);
+        MinIndoorTemperatureAt = dailyWeatherStats.OrderBy(r => r.MinIndoorTemperature).First().MinIndoorTemperatureAt;
+        AverageIndoorTemperature = dailyWeatherStats.Average(r => r.AverageIndoorTemperature);
 
-        MaxIndoorHumidityPct = dailyWeatherStats.Max(r => r.MaxIndoorHumidityPct);
-        MinIndoorHumidityPct = dailyWeatherStats.Min(r => r.MinIndoorHumidityPct);
-        AverageIndoorHumidityPct = Convert.ToInt32(dailyWeatherStats.Average(r => r.AverageIndoorHumidityPct));
+        MaxIndoorHumidity = dailyWeatherStats.Max(r => r.MaxIndoorHumidity);
+        MaxIndoorHumidityAt = dailyWeatherStats.OrderByDescending(r => r.MaxIndoorHumidity).First().MaxIndoorHumidityAt;
+        MinIndoorHumidity = dailyWeatherStats.Min(r => r.MinIndoorHumidity);
+        MinIndoorHumidityAt = dailyWeatherStats.OrderBy(r => r.MinIndoorHumidity).First().MinIndoorHumidityAt;
+        AverageIndoorHumidity = Convert.ToInt32(dailyWeatherStats.Average(r => r.AverageIndoorHumidity));
 
-        MaxOutdoorTemperatureC = dailyWeatherStats.Max(r => r.MaxOutdoorTemperatureC);
-        MinOutdoorTemperatureC = dailyWeatherStats.Min(r => r.MinOutdoorTemperatureC);
-        AverageOutdoorTemperatureC = dailyWeatherStats.Average(r => r.AverageOutdoorTemperatureC);
+        MaxOutdoorTemperature = dailyWeatherStats.Max(r => r.MaxOutdoorTemperature);
+        MaxOutdoorTemperatureAt = dailyWeatherStats.OrderByDescending(r => r.MaxOutdoorTemperature).First().MaxOutdoorTemperatureAt;
+        MinOutdoorTemperature = dailyWeatherStats.Min(r => r.MinOutdoorTemperature);
+        MinOutdoorTemperatureAt = dailyWeatherStats.OrderBy(r => r.MinOutdoorTemperature).First().MinOutdoorTemperatureAt;
+        AverageOutdoorTemperature = dailyWeatherStats.Average(r => r.AverageOutdoorTemperature);
 
-        MaxOutdoorHumidityPct = dailyWeatherStats.Max(r => r.MaxOutdoorHumidityPct);
-        MinOutdoorHumidityPct = dailyWeatherStats.Min(r => r.MinOutdoorHumidityPct);
-        AverageOutdoorHumidityPct = Convert.ToInt32(dailyWeatherStats.Average(r => r.AverageOutdoorHumidityPct));
+        MaxOutdoorHumidity = dailyWeatherStats.Max(r => r.MaxOutdoorHumidity);
+        MaxOutdoorHumidityAt = dailyWeatherStats.OrderByDescending(r => r.MaxOutdoorHumidity).First().MaxOutdoorHumidityAt;
+        MinOutdoorHumidity = dailyWeatherStats.Min(r => r.MinOutdoorHumidity);
+        MinOutdoorHumidityAt = dailyWeatherStats.OrderBy(r => r.MinOutdoorHumidity).First().MinOutdoorHumidityAt;
+        AverageOutdoorHumidity = Convert.ToInt32(dailyWeatherStats.Average(r => r.AverageOutdoorHumidity));
 
-        DewPointC = dailyWeatherStats.Average(r => r.DewPointC);
+        MaxDewPoint = dailyWeatherStats.Max(r => r.MaxDewPoint);
+        MaxDewPointAt = dailyWeatherStats.OrderByDescending(r => r.MaxDewPoint).First().MaxDewPointAt;
+        MinDewPoint = dailyWeatherStats.Min(r => r.MinDewPoint);
+        MinDewPointAt = dailyWeatherStats.OrderBy(r => r.MinDewPoint).First().MinDewPointAt;
+        AverageDewPoint = dailyWeatherStats.Average(r => r.AverageDewPoint);
 
-        MaxThermalSensationC = dailyWeatherStats.Max(r => r.MaxThermalSensationC);
-        MinThermalSensationC = dailyWeatherStats.Min(r => r.MinThermalSensationC);
-        AverageThermalSensationC = dailyWeatherStats.Average(r => r.AverageThermalSensationC);
+        MaxThermalSensation = dailyWeatherStats.Max(r => r.MaxThermalSensation);
+        MaxThermalSensationAt = dailyWeatherStats.OrderByDescending(r => r.MaxThermalSensation).First().MaxThermalSensationAt;
+        MinThermalSensation = dailyWeatherStats.Min(r => r.MinThermalSensation);
+        MinThermalSensationAt = dailyWeatherStats.OrderBy(r => r.MinThermalSensation).First().MinThermalSensationAt;
+        AverageThermalSensation = dailyWeatherStats.Average(r => r.AverageThermalSensation);
 
-        MaxWindSpeedKmH = dailyWeatherStats.Max(r => r.MaxWindSpeedKmH);
-        MinWindSpeedKmH = dailyWeatherStats.Min(r => r.MinWindSpeedKmH);
-        AverageWindSpeedKmH = dailyWeatherStats.Average(r => r.AverageWindSpeedKmH);
+        MaxWindSpeed = dailyWeatherStats.Max(r => r.MaxWindSpeed);
+        MaxWindSpeedAt = dailyWeatherStats.OrderByDescending(r => r.MaxWindSpeed).First().MaxWindSpeedAt;
+        MinWindSpeed = dailyWeatherStats.Min(r => r.MinWindSpeed);
+        MinWindSpeedAt = dailyWeatherStats.OrderBy(r => r.MinWindSpeed).First().MinWindSpeedAt;
+        AverageWindSpeed = dailyWeatherStats.Average(r => r.AverageWindSpeed);
 
-        MaxGustSpeedKmH = dailyWeatherStats.Max(r => r.MaxGustSpeedKmH);
-        MinGustSpeedKmH = dailyWeatherStats.Min(r => r.MinGustSpeedKmH);
-        AverageGustSpeedKmH = dailyWeatherStats.Average(r => r.AverageGustSpeedKmH);
+        MaxGustSpeed = dailyWeatherStats.Max(r => r.MaxGustSpeed);
+        MaxGustSpeedAt = dailyWeatherStats.OrderByDescending(r => r.MaxGustSpeed).First().MaxGustSpeedAt;
+        MinGustSpeed = dailyWeatherStats.Min(r => r.MinGustSpeed);
+        MinGustSpeedAt = dailyWeatherStats.OrderBy(r => r.MinGustSpeed).First().MinGustSpeedAt;
+        AverageGustSpeed = dailyWeatherStats.Average(r => r.AverageGustSpeed);
 
         WindDirection = dailyWeatherStats.GroupBy(r => r.WindDirection)
             .OrderByDescending(group => group.Count())
             .First()
             .First().WindDirection;
 
-        MaxAbsolutePressureHpa = dailyWeatherStats.Max(r => r.MaxAbsolutePressureHpa);
-        MinAbsolutePressureHpa = dailyWeatherStats.Min(r => r.MinAbsolutePressureHpa);
-        AverageAbsolutePressureHpa = dailyWeatherStats.Average(r => r.AverageAbsolutePressureHpa);
+        MaxAbsolutePressure = dailyWeatherStats.Max(r => r.MaxAbsolutePressure);
+        MaxAbsolutePressureAt = dailyWeatherStats.OrderByDescending(r => r.MaxAbsolutePressure).First().MaxAbsolutePressureAt;
+        MinAbsolutePressure = dailyWeatherStats.Min(r => r.MinAbsolutePressure);
+        MinAbsolutePressureAt = dailyWeatherStats.OrderBy(r => r.MinAbsolutePressure).First().MinAbsolutePressureAt;
+        AverageAbsolutePressure = dailyWeatherStats.Average(r => r.AverageAbsolutePressure);
 
-        MaxRelativePressureHpa = dailyWeatherStats.Max(r => r.MaxRelativePressureHpa);
-        MinRelativePressureHpa = dailyWeatherStats.Min(r => r.MinRelativePressureHpa);
-        AverageRelativePressureHpa = dailyWeatherStats.Average(r => r.AverageRelativePressureHpa);
+        MaxRelativePressure = dailyWeatherStats.Max(r => r.MaxRelativePressure);
+        MaxRelativePressureAt = dailyWeatherStats.OrderByDescending(r => r.MaxRelativePressure).First().MaxRelativePressureAt;
+        MinRelativePressure = dailyWeatherStats.Min(r => r.MinRelativePressure);
+        MinRelativePressureAt = dailyWeatherStats.OrderBy(r => r.MinRelativePressure).First().MinRelativePressureAt;
+        AverageRelativePressure = dailyWeatherStats.Average(r => r.AverageRelativePressure);
 
-        MaxSolarRadiationWm2 = dailyWeatherStats.Max(r => r.MaxSolarRadiationWm2);
-        MinSolarRadiationWm2 = dailyWeatherStats.Min(r => r.MinSolarRadiationWm2);
-        AverageSolarRadiationWm2 = dailyWeatherStats.Average(r => r.AverageSolarRadiationWm2);
+        MaxSolarRadiation = dailyWeatherStats.Max(r => r.MaxSolarRadiation);
+        MaxSolarRadiationAt = dailyWeatherStats.OrderByDescending(r => r.MaxSolarRadiation).First().MaxSolarRadiationAt;
+        MinSolarRadiation = dailyWeatherStats.Min(r => r.MinSolarRadiation);
+        MinSolarRadiationAt = dailyWeatherStats.OrderBy(r => r.MinSolarRadiation).First().MinSolarRadiationAt;
+        AverageSolarRadiation = dailyWeatherStats.Average(r => r.AverageSolarRadiation);
 
         MaxUVI = dailyWeatherStats.Max(r => r.MaxUVI);
+        MaxUVIAt = dailyWeatherStats.OrderByDescending(r => r.MaxUVI).First().MaxUVIAt;
         MinUVI = dailyWeatherStats.Min(r => r.MinUVI);
+        MinUVIAt = dailyWeatherStats.OrderBy(r => r.MinUVI).First().MinUVIAt;
         AverageUVI = Convert.ToInt32(dailyWeatherStats.Average(r => r.AverageUVI));
 
-        MaxRainPerHourMm = dailyWeatherStats.Max(r => r.MaxRainPerHourMm);
-        MinRainPerHourMm = dailyWeatherStats.Min(r => r.MinRainPerHourMm);
-        AverageRainPerHourMm = dailyWeatherStats.Average(r => r.AverageRainPerHourMm);
-
-        MaxRainEpisodeMm = dailyWeatherStats.Max(r => r.MaxRainEpisodeMm);
-        MinRainEpisodeMm = dailyWeatherStats.Min(r => r.MinRainEpisodeMm);
-        AverageRainEpisodeMm = dailyWeatherStats.Average(r => r.AverageRainEpisodeMm);
-
-        AccumulatedRainMm = dailyWeatherStats.Sum(r => r.AccumulatedRainMm);
+        AccumulatedRain = dailyWeatherStats.Sum(r => r.AccumulatedRain);
     }
 
-    public DateTime Date { get; set; }
+    public DateTime Id { get; set; }
 
-    public double MaxIndoorTemperatureC { get; set; }
-    public double MinIndoorTemperatureC { get; set; }
-    public double AverageIndoorTemperatureC { get; set; }
+    public double MaxIndoorTemperature { get; set; }
+    public DateTime MaxIndoorTemperatureAt { get; set; }
+    public double MinIndoorTemperature { get; set; }
+    public DateTime MinIndoorTemperatureAt { get; set; }
+    public double AverageIndoorTemperature { get; set; }
 
-    public int MaxIndoorHumidityPct { get; set; }
-    public int MinIndoorHumidityPct { get; set; }
-    public int AverageIndoorHumidityPct { get; set; }
+    public int MaxIndoorHumidity { get; set; }
+    public DateTime MaxIndoorHumidityAt { get; set; }
+    public int MinIndoorHumidity { get; set; }
+    public DateTime MinIndoorHumidityAt { get; set; }
+    public int AverageIndoorHumidity { get; set; }
 
-    public double MaxOutdoorTemperatureC { get; set; }
-    public double MinOutdoorTemperatureC { get; set; }
-    public double AverageOutdoorTemperatureC { get; set; }
+    public double MaxOutdoorTemperature { get; set; }
+    public DateTime MaxOutdoorTemperatureAt { get; set; }
+    public double MinOutdoorTemperature { get; set; }
+    public DateTime MinOutdoorTemperatureAt { get; set; }
+    public double AverageOutdoorTemperature { get; set; }
 
-    public int MaxOutdoorHumidityPct { get; set; }
-    public int MinOutdoorHumidityPct { get; set; }
-    public int AverageOutdoorHumidityPct { get; set; }
+    public int MaxOutdoorHumidity { get; set; }
+    public DateTime MaxOutdoorHumidityAt { get; set; }
+    public int MinOutdoorHumidity { get; set; }
+    public DateTime MinOutdoorHumidityAt { get; set; }
+    public int AverageOutdoorHumidity { get; set; }
 
-    public double DewPointC { get; set; }
+    public double MaxDewPoint { get; set; }
+    public DateTime MaxDewPointAt { get; set; }
+    public double MinDewPoint { get; set; }
+    public DateTime MinDewPointAt { get; set; }
+    public double AverageDewPoint { get; set; }
 
-    public double MaxThermalSensationC { get; set; }
-    public double MinThermalSensationC { get; set; }
-    public double AverageThermalSensationC { get; set; }
+    public double MaxThermalSensation { get; set; }
+    public DateTime MaxThermalSensationAt { get; set; }
+    public double MinThermalSensation { get; set; }
+    public DateTime MinThermalSensationAt { get; set; }
+    public double AverageThermalSensation { get; set; }
 
-    public double MaxWindSpeedKmH { get; set; }
-    public double MinWindSpeedKmH { get; set; }
-    public double AverageWindSpeedKmH { get; set; }
+    public double MaxWindSpeed { get; set; }
+    public DateTime MaxWindSpeedAt { get; set; }
+    public double MinWindSpeed { get; set; }
+    public DateTime MinWindSpeedAt { get; set; }
+    public double AverageWindSpeed { get; set; }
 
 
-    public double MaxGustSpeedKmH { get; set; }
-    public double MinGustSpeedKmH { get; set; }
-    public double AverageGustSpeedKmH { get; set; }
+    public double MaxGustSpeed { get; set; }
+    public DateTime MaxGustSpeedAt { get; set; }
+    public double MinGustSpeed { get; set; }
+    public DateTime MinGustSpeedAt { get; set; }
+    public double AverageGustSpeed { get; set; }
 
     public int WindDirection { get; set; }
 
-    public double MaxAbsolutePressureHpa { get; set; }
-    public double MinAbsolutePressureHpa { get; set; }
-    public double AverageAbsolutePressureHpa { get; set; }
+    public double MaxAbsolutePressure { get; set; }
+    public DateTime MaxAbsolutePressureAt { get; set; }
+    public double MinAbsolutePressure { get; set; }
+    public DateTime MinAbsolutePressureAt { get; set; }
+    public double AverageAbsolutePressure { get; set; }
 
-    public double MaxRelativePressureHpa { get; set; }
-    public double MinRelativePressureHpa { get; set; }
-    public double AverageRelativePressureHpa { get; set; }
+    public double MaxRelativePressure { get; set; }
+    public DateTime MaxRelativePressureAt { get; set; }
+    public double MinRelativePressure { get; set; }
+    public DateTime MinRelativePressureAt { get; set; }
+    public double AverageRelativePressure { get; set; }
 
-    public double MaxSolarRadiationWm2 { get; set; }
-    public double MinSolarRadiationWm2 { get; set; }
-    public double AverageSolarRadiationWm2 { get; set; }
+    public double MaxSolarRadiation { get; set; }
+    public DateTime MaxSolarRadiationAt { get; set; }
+    public double MinSolarRadiation { get; set; }
+    public DateTime MinSolarRadiationAt { get; set; }
+    public double AverageSolarRadiation { get; set; }
 
     public int MaxUVI { get; set; }
+    public DateTime MaxUVIAt { get; set; }
     public int MinUVI { get; set; }
+    public DateTime MinUVIAt { get; set; }
     public int AverageUVI { get; set; }
 
-    public double MaxRainPerHourMm { get; set; }
-    public double MinRainPerHourMm { get; set; }
-    public double AverageRainPerHourMm { get; set; }
-
-    public double MaxRainEpisodeMm { get; set; }
-    public double MinRainEpisodeMm { get; set; }
-    public double AverageRainEpisodeMm { get; set; }
-
-    public double AccumulatedRainMm { get; set; }
+    public double AccumulatedRain { get; set; }
 
     public override string ToString()
     {
-        return $"Date: {Date}, " +
-            $"MaxIndoorTemperatureC: {MaxIndoorTemperatureC}, " +
-            $"MinIndoorTemperatureC: {MinIndoorTemperatureC}, " +
-            $"AverageIndoorTemperatureC: {AverageIndoorTemperatureC}, " +
-            $"MaxIndoorHumidityPct: {MaxIndoorHumidityPct}, " +
-            $"MinIndoorHumidityPct: {MinIndoorHumidityPct}, " +
-            $"AverageIndoorHumidityPct: {AverageIndoorHumidityPct}, " +
-            $"MaxOutdoorTemperatureC: {MaxOutdoorTemperatureC}, " +
-            $"MinOutdoorTemperatureC: {MinOutdoorTemperatureC}, " +
-            $"AverageOutdoorTemperatureC: {AverageOutdoorTemperatureC}, " +
-            $"MaxOutdoorHumidityPct: {MaxOutdoorHumidityPct}, " +
-            $"MinOutdoorHumidityPct: {MinOutdoorHumidityPct}, " +
-            $"AverageOutdoorHumidityPct: {AverageOutdoorHumidityPct}, " +
-            $"DewPointC: {DewPointC}, " +
-            $"MaxThermalSensationC: {MaxThermalSensationC}, " +
-            $"MinThermalSensationC: {MinThermalSensationC}, " +
-            $"AverageThermalSensationC: {AverageThermalSensationC}, " +
-            $"MaxWindSpeedKmH: {MaxWindSpeedKmH}, " +
-            $"MinWindSpeedKmH: {MinWindSpeedKmH}, " +
-            $"AverageWindSpeedKmH: {AverageWindSpeedKmH}, " +
-            $"MaxGustSpeedKmH: {MaxGustSpeedKmH}, " +
-            $"MinGustSpeedKmH: {MinGustSpeedKmH}, " +
-            $"AverageGustSpeedKmH: {AverageGustSpeedKmH}, " +
+        return $"Date: {Id}, " +
+            $"MaxIndoorTemperature: {MaxIndoorTemperature}, " +
+            $"MaxIndoorTemperatureAt: {MaxIndoorTemperatureAt}, " +
+            $"MinIndoorTemperature: {MinIndoorTemperature}, " +
+            $"MinIndoorTemperatureAt: {MinIndoorTemperatureAt}, " +
+            $"AverageIndoorTemperature: {AverageIndoorTemperature}, " +
+            $"MaxIndoorHumidity: {MaxIndoorHumidity}, " +
+            $"MaxIndoorHumidityAt: {MaxIndoorHumidityAt}, " +
+            $"MinIndoorHumidity: {MinIndoorHumidity}, " +
+            $"MinIndoorHumidityAt: {MinIndoorHumidityAt}, " +
+            $"AverageIndoorHumidity: {AverageIndoorHumidity}, " +
+            $"MaxOutdoorTemperature: {MaxOutdoorTemperature}, " +
+            $"MaxOutdoorTemperatureAt: {MaxOutdoorTemperatureAt}, " +
+            $"MinOutdoorTemperature: {MinOutdoorTemperature}, " +
+            $"MinOutdoorTemperatureAt: {MinOutdoorTemperatureAt}, " +
+            $"AverageOutdoorTemperature: {AverageOutdoorTemperature}, " +
+            $"MaxOutdoorHumidity: {MaxOutdoorHumidity}, " +
+            $"MaxOutdoorHumidityAt: {MaxOutdoorHumidityAt}, " +
+            $"MinOutdoorHumidity: {MinOutdoorHumidity}, " +
+            $"MinOutdoorHumidityAt: {MinOutdoorHumidityAt}, " +
+            $"AverageOutdoorHumidity: {AverageOutdoorHumidity}, " +
+            $"MaxDewPoint: {MaxDewPoint}, " +
+            $"MaxDewPointAt: {MaxDewPointAt}, " +
+            $"MinDewPoint: {MinDewPoint}, " +
+            $"MinDewPointAt: {MinDewPointAt}, " +
+            $"AverageDewPoint: {AverageDewPoint}, " +
+            $"MaxThermalSensation: {MaxThermalSensation}, " +
+            $"MaxThermalSensationAt: {MaxThermalSensationAt}, " +
+            $"MinThermalSensation: {MinThermalSensation}, " +
+            $"MinThermalSensationAt: {MinThermalSensationAt}, " +
+            $"AverageThermalSensation: {AverageThermalSensation}, " +
+            $"MaxWindSpeed: {MaxWindSpeed}, " +
+            $"MaxWindSpeedAt: {MaxWindSpeedAt}, " +
+            $"MinWindSpeed: {MinWindSpeed}, " +
+            $"MinWindSpeedAt: {MinWindSpeedAt}, " +
+            $"AverageWindSpeed: {AverageWindSpeed}, " +
+            $"MaxGustSpeed: {MaxGustSpeed}, " +
+            $"MaxGustSpeedAt: {MaxGustSpeedAt}, " +
+            $"MinGustSpeed: {MinGustSpeed}, " +
+            $"MinGustSpeedAt: {MinGustSpeedAt}, " +
+            $"AverageGustSpeed: {AverageGustSpeed}, " +
             $"WindDirection: {WindDirection}, " +
-            $"MaxAbsolutePressureHpa: {MaxAbsolutePressureHpa}, " +
-            $"MinAbsolutePressureHpa: {MinAbsolutePressureHpa}, " +
-            $"AverageAbsolutePressureHpa: {AverageAbsolutePressureHpa}, " +
-            $"MaxRelativePressureHpa: {MaxRelativePressureHpa}, " +
-            $"MinRelativePressureHpa: {MinRelativePressureHpa}, " +
-            $"AverageRelativePressureHpa: {AverageRelativePressureHpa}, " +
-            $"MaxSolarRadiationWm2: {MaxSolarRadiationWm2}, " +
-            $"MinSolarRadiationWm2: {MinSolarRadiationWm2}, " +
-            $"AverageSolarRadiationWm2: {AverageSolarRadiationWm2}, " +
+            $"MaxAbsolutePressure: {MaxAbsolutePressure}, " +
+            $"MaxAbsolutePressureAt: {MaxAbsolutePressureAt}, " +
+            $"MinAbsolutePressure: {MinAbsolutePressure}, " +
+            $"MinAbsolutePressureAt: {MinAbsolutePressureAt}, " +
+            $"AverageAbsolutePressure: {AverageAbsolutePressure}, " +
+            $"MaxRelativePressure: {MaxRelativePressure}, " +
+            $"MaxRelativePressureAt: {MaxRelativePressureAt}, " +
+            $"MinRelativePressure: {MinRelativePressure}, " +
+            $"MinRelativePressureAt: {MinRelativePressureAt}, " +
+            $"AverageRelativePressure: {AverageRelativePressure}, " +
+            $"MaxSolarRadiation: {MaxSolarRadiation}, " +
+            $"MaxSolarRadiationAt: {MaxSolarRadiationAt}, " +
+            $"MinSolarRadiation: {MinSolarRadiation}, " +
+            $"MinSolarRadiationAt: {MinSolarRadiationAt}, " +
+            $"AverageSolarRadiation: {AverageSolarRadiation}, " +
             $"MaxUVI: {MaxUVI}, " +
+            $"MaxUVIAt: {MaxUVIAt}, " +
             $"MinUVI: {MinUVI}, " +
+            $"MinUVIAt: {MinUVIAt}, " +
             $"AverageUVI: {AverageUVI}, " +
-            $"MaxRainPerHourMm: {MaxRainPerHourMm}, " +
-            $"MinRainPerHourMm: {MinRainPerHourMm}, " +
-            $"AverageRainPerHourMm: {AverageRainPerHourMm}, " +
-            $"MaxRainEpisodeMm: {MaxRainEpisodeMm}, " +
-            $"MinRainEpisodeMm: {MinRainEpisodeMm}, " +
-            $"AverageRainEpisodeMm: {AverageRainEpisodeMm}, " +
-            $"AccumulatedRainMm: {AccumulatedRainMm}";
+            $"AccumulatedRain: {AccumulatedRain}";
     }
 }
