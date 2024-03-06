@@ -18,10 +18,10 @@ public class WeatherRecordsRepository(SaballutsWeatherContext context, IMapper m
         return _mapper.Map<WeatherRecord>(records);
     }
 
-    public List<WeatherRecord> GetByIntervalTime(DateTime initial, DateTime final)
+    public async Task<List<WeatherRecord>> GetByIntervalTimeAsync(DateTime initial, DateTime final)
     {
         Expression<Func<DbWeatherRecord, bool>> filter = dbRecord => dbRecord.Date >= initial && dbRecord.Date < final;
-        return Search(filter);
+        return await SearchAsync(filter);
     }
 
     public async Task<WeatherRecord> GetFirstAsync()
@@ -36,8 +36,8 @@ public class WeatherRecordsRepository(SaballutsWeatherContext context, IMapper m
         return _mapper.Map<WeatherRecord>(records);
     }
 
-    private List<WeatherRecord> Search(Expression<Func<DbWeatherRecord, bool>> filter)
-            => _mapper.Map<List<WeatherRecord>>(_context.WeatherRecords.Where(filter).ToList());
+    private async Task<List<WeatherRecord>> SearchAsync(Expression<Func<DbWeatherRecord, bool>> filter)
+            => _mapper.Map<List<WeatherRecord>>(await _context.WeatherRecords.Where(filter).ToListAsync());
 
     public async Task AddAsync(WeatherRecord weatherRecord)
             => await _context.WeatherRecords.AddAsync(_mapper.Map<DbWeatherRecord>(weatherRecord));

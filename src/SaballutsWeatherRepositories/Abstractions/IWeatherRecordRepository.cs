@@ -5,7 +5,7 @@ namespace SaballutsWeatherRepositories.Abstractions;
 public interface IWeatherRecordsRepository
 {
     Task<WeatherRecord> GetById(DateTime id);
-    List<WeatherRecord> GetByIntervalTime(DateTime initial, DateTime final);
+    Task<List<WeatherRecord>> GetByIntervalTimeAsync(DateTime initial, DateTime final);
     Task<WeatherRecord> GetLastAsync();
     Task<WeatherRecord> GetFirstAsync();
     Task AddAsync(WeatherRecord weatherRecord);

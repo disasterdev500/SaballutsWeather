@@ -27,7 +27,7 @@ public class DailyWeatherStatsService(IDailyWeatherStatsRepository dailyWeatherS
             return Result.Ok(stats);
         }
 
-        var records = _weatherRecordsRepository.GetByIntervalTime(initialDate, initialDate.AddDays(1));
+        var records = await _weatherRecordsRepository.GetByIntervalTimeAsync(initialDate, initialDate.AddDays(1));
         if (records is null)
         {
             return Result.Fail<DailyWeatherStats>("There are no records for the specified dates");
