@@ -9,47 +9,47 @@ public class DbWeatherRecord
     public DateTime Date { get; set; }
 
     [Column(TypeName = "decimal(4,2)")]
-    public double IndoorTemperatureC { get; set; }
+    public double IndoorTemperature { get; set; }
     [Column(TypeName = "decimal(5,2)")]
-    public int IndoorHumidityPct { get; set; }
+    public int IndoorHumidity { get; set; }
 
     [Column(TypeName = "decimal(4,2)")]
-    public double OutdoorTemperatureC { get; set; }
+    public double OutdoorTemperature { get; set; }
     [Column(TypeName = "decimal(5,2)")]
-    public int OutdoorHumidityPct { get; set; }
+    public int OutdoorHumidity { get; set; }
 
     [Column(TypeName = "decimal(4,2)")]
-    public double DewPointC { get; set; }
+    public double DewPoint { get; set; }
     [Column(TypeName = "decimal(4,2)")]
 
-    public double ThermalSensationC { get; set; }
+    public double ThermalSensation { get; set; }
     [Column(TypeName = "decimal(5,2)")]
 
-    public double WindSpeedKmH { get; set; }
+    public double WindSpeed { get; set; }
     [Column(TypeName = "decimal(5,2)")]
-    public double GustSpeedKmH { get; set; }
+    public double GustSpeed { get; set; }
     public int WindDirection { get; set; }
 
     [Column(TypeName = "decimal(6,2)")]
-    public double AbsolutePressureHpa { get; set; }
+    public double AbsolutePressure { get; set; }
     [Column(TypeName = "decimal(6,2)")]
-    public double RelativePressureHpa { get; set; }
+    public double RelativePressure { get; set; }
 
     [Column(TypeName = "decimal(6,2)")]
-    public double SolarRadiationWm2 { get; set; }
+    public double SolarRadiation { get; set; }
     public int UVI { get; set; }
 
     [Column(TypeName = "decimal(6,2)")]
-    public double RainPerHourMm { get; set; }
+    public double RainPerHour { get; set; }
     [Column(TypeName = "decimal(6,2)")]
-    public double RainEpisodeMm { get; set; }
+    public double RainEpisode { get; set; }
     [Column(TypeName = "decimal(6,2)")]
 
-    public double RainPerDayMm { get; set; }
+    public double RainPerDay { get; set; }
     [Column(TypeName = "decimal(6,2)")]
-    public double RainPerWeekMm { get; set; }
+    public double RainPerWeek { get; set; }
     [Column(TypeName = "decimal(6,2)")]
-    public double RainPerMonthMm { get; set; }
+    public double RainPerMonth { get; set; }
     [Column(TypeName = "decimal(6,2)")]
-    public double RainPerYearMm { get; set; }
+    public double RainPerYear { get; set; }
 }
