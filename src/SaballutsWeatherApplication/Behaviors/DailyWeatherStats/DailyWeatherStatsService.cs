@@ -55,7 +55,7 @@ public class DailyWeatherStatsService(IDailyWeatherStatsRepository dailyWeatherS
         }
         else
         {
-            initialDate = stats.Date.Date.AddDays(1);
+            initialDate = stats.Id.Date.AddDays(1);
         }
 
         var lastRecord = await _weatherRecordsRepository.GetLastAsync();
