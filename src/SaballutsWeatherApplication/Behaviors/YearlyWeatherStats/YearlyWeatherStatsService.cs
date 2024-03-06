@@ -46,11 +46,11 @@ public class YearlyWeatherStatsService(IYearlyWeatherStatsRepository yearlyWeath
             {
                 return Result.Fail("First monthly weather stats not found");
             }
-            initialDate = monthlyStats.Date.Date;
+            initialDate = monthlyStats.Id.Date;
         }
         else
         {
-            initialDate = stats.Date.AddYears(1);
+            initialDate = stats.Id.AddYears(1);
         }
 
         var lastMonthlyStats = await _monthlyWeatherStatsRepository.GetLastAsync();
@@ -59,7 +59,7 @@ public class YearlyWeatherStatsService(IYearlyWeatherStatsRepository yearlyWeath
             return Result.Fail<WeeklyWeatherStats>("Last monthly weather stats not found");
         }
 
-        var finalDate = lastMonthlyStats.Date.GetFirstDayOfYear();
+        var finalDate = lastMonthlyStats.Id.GetFirstDayOfYear();
 
         while (initialDate < finalDate)
         {

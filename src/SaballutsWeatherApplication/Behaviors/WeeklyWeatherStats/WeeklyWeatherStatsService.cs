@@ -47,11 +47,11 @@ public class WeeklyWeatherStatsService(IWeeklyWeatherStatsRepository weeklyWeath
             {
                 return Result.Fail("First daily weather stats not found");
             }
-            initialDate = dailyStats.Date.Date;
+            initialDate = dailyStats.Id.Date;
         }
         else
         {
-            initialDate = stats.Date.AddDays(7);
+            initialDate = stats.Id.AddDays(7);
         }
 
         var lastDailyStats = await _dailyWeatherStatsRepository.GetLastAsync();
@@ -60,7 +60,7 @@ public class WeeklyWeatherStatsService(IWeeklyWeatherStatsRepository weeklyWeath
             return Result.Fail<WeeklyWeatherStats>("Last daily weather stats not found");
         }
 
-        var finalDate = lastDailyStats.Date.GetFirstDayOfWeek();
+        var finalDate = lastDailyStats.Id.GetFirstDayOfWeek();
 
         while (initialDate < finalDate)
         {
