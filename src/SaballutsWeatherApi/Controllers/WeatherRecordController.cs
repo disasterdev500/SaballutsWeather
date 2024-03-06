@@ -28,12 +28,12 @@ public class WeatherRecordController(IWeatherRecordService weatherRecordGetterSe
     }
 
     [HttpGet()]
-    public async Task<ActionResult<List<WeatherRecord>>> GetWeatherRecordByDateRange([FromQuery] DateTime initial, [FromQuery] DateTime final)
+    public async Task<ActionResult<List<WeatherRecord>>> GetWeatherRecordByDateRangeAsync([FromQuery] DateTime initial, [FromQuery] DateTime final)
     {
         List<WeatherRecord>? records = null;
         try
         {
-            records = _weatherRecordGetterService.GetByDateRange(initial, final);
+            records = await _weatherRecordGetterService.GetByDateRangeAsync(initial, final);
         }
         catch (Exception e)
         {

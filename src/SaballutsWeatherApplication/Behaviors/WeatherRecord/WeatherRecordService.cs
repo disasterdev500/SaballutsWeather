@@ -11,7 +11,7 @@ public class WeatherRecordService(IWeatherRecordsRepository weatherRecordReposit
 
     public async Task<WeatherRecord> GetByIDAsync(DateTime timestamp) => await _weatherRecordRepository.GetById(timestamp);
 
-    public List<WeatherRecord> GetByDateRange(DateTime initial, DateTime final) => _weatherRecordRepository.GetByIntervalTime(initial, final);
+    public async Task<List<WeatherRecord>> GetByDateRangeAsync(DateTime initial, DateTime final) => await _weatherRecordRepository.GetByIntervalTimeAsync(initial, final);
 
     public async Task AddAsync(WeatherRecord weatherRecord)
     {
