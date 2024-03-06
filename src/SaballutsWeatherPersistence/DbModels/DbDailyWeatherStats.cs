@@ -10,99 +10,113 @@ public class DbDailyWeatherStats
     public DateTime Date { get; set; }
 
     [Column(TypeName = "decimal(4,2)")]
-    public double MaxIndoorTemperatureC { get; set; }
+    public double MaxIndoorTemperature { get; set; }
+    public DateTime MaxIndoorTemperatureAt { get; set; }
     [Column(TypeName = "decimal(4,2)")]
-    public double MinIndoorTemperatureC { get; set; }
+    public double MinIndoorTemperature { get; set; }
+    public DateTime MinIndoorTemperatureAt { get; set; }
     [Column(TypeName = "decimal(4,2)")]
-    public double AverageIndoorTemperatureC { get; set; }
+    public double AverageIndoorTemperature { get; set; }
 
     [Column(TypeName = "decimal(5,2)")]
-    public int MaxIndoorHumidityPct { get; set; }
+    public int MaxIndoorHumidity { get; set; }
+    public DateTime MaxIndoorHumidityAt { get; set; }
     [Column(TypeName = "decimal(5,2)")]
-    public int MinIndoorHumidityPct { get; set; }
+    public int MinIndoorHumidity { get; set; }
+    public DateTime MinIndoorHumidityAt { get; set; }
     [Column(TypeName = "decimal(5,2)")]
-    public int AverageIndoorHumidityPct { get; set; }
+    public int AverageIndoorHumidity { get; set; }
 
     [Column(TypeName = "decimal(4,2)")]
-    public double MaxOutdoorTemperatureC { get; set; }
+    public double MaxOutdoorTemperature { get; set; }
+    public DateTime MaxOutdoorTemperatureAt { get; set; }
     [Column(TypeName = "decimal(4,2)")]
-    public double MinOutdoorTemperatureC { get; set; }
+    public double MinOutdoorTemperature { get; set; }
+    public DateTime MinOutdoorTemperatureAt { get; set; }
     [Column(TypeName = "decimal(4,2)")]
-    public double AverageOutdoorTemperatureC { get; set; }
+    public double AverageOutdoorTemperature { get; set; }
 
     [Column(TypeName = "decimal(5,2)")]
-    public int MaxOutdoorHumidityPct { get; set; }
+    public int MaxOutdoorHumidity { get; set; }
+    public DateTime MaxOutdoorHumidityAt { get; set; }
     [Column(TypeName = "decimal(5,2)")]
-    public int MinOutdoorHumidityPct { get; set; }
+    public int MinOutdoorHumidity { get; set; }
+    public DateTime MinOutdoorHumidityAt { get; set; }
     [Column(TypeName = "decimal(5,2)")]
-    public int AverageOutdoorHumidityPct { get; set; }
+    public int AverageOutdoorHumidity { get; set; }
 
     [Column(TypeName = "decimal(4,2)")]
-    public double DewPointC { get; set; }
+    public double MaxDewPoint { get; set; }
+    public DateTime MaxDewPointAt { get; set; }
+    [Column(TypeName = "decimal(4,2)")]
+    public double MinDewPoint { get; set; }
+    public DateTime MinDewPointAt { get; set; }
+    [Column(TypeName = "decimal(4,2)")]
+    public double AverageDewPoint { get; set; }
 
     [Column(TypeName = "decimal(4,2)")]
-    public double MaxThermalSensationC { get; set; }
+    public double MaxThermalSensation { get; set; }
+    public DateTime MaxThermalSensationAt { get; set; }
     [Column(TypeName = "decimal(4,2)")]
-    public double MinThermalSensationC { get; set; }
+    public double MinThermalSensation { get; set; }
+    public DateTime MinThermalSensationAt { get; set; }
     [Column(TypeName = "decimal(4,2)")]
-    public double AverageThermalSensationC { get; set; }
+    public double AverageThermalSensation { get; set; }
 
     [Column(TypeName = "decimal(5,2)")]
-    public double MaxWindSpeedKmH { get; set; }
+    public double MaxWindSpeed { get; set; }
+    public DateTime MaxWindSpeedAt { get; set; }
     [Column(TypeName = "decimal(5,2)")]
-    public double MinWindSpeedKmH { get; set; }
+    public double MinWindSpeed { get; set; }
+    public DateTime MinWindSpeedAt { get; set; }
     [Column(TypeName = "decimal(5,2)")]
-    public double AverageWindSpeedKmH { get; set; }
+    public double AverageWindSpeed { get; set; }
 
 
     [Column(TypeName = "decimal(5,2)")]
-    public double MaxGustSpeedKmH { get; set; }
+    public double MaxGustSpeed { get; set; }
+    public DateTime MaxGustSpeedAt { get; set; }
     [Column(TypeName = "decimal(5,2)")]
-    public double MinGustSpeedKmH { get; set; }
+    public double MinGustSpeed { get; set; }
+    public DateTime MinGustSpeedAt { get; set; }
     [Column(TypeName = "decimal(5,2)")]
-    public double AverageGustSpeedKmH { get; set; }
+    public double AverageGustSpeed { get; set; }
 
     public int WindDirection { get; set; }
 
     [Column(TypeName = "decimal(6,2)")]
-    public double MaxAbsolutePressureHpa { get; set; }
+    public double MaxAbsolutePressure { get; set; }
+    public DateTime MaxAbsolutePressureAt { get; set; }
     [Column(TypeName = "decimal(6,2)")]
-    public double MinAbsolutePressureHpa { get; set; }
+    public double MinAbsolutePressure { get; set; }
+    public DateTime MinAbsolutePressureAt { get; set; }
     [Column(TypeName = "decimal(6,2)")]
-    public double AverageAbsolutePressureHpa { get; set; }
+    public double AverageAbsolutePressure { get; set; }
 
     [Column(TypeName = "decimal(6,2)")]
-    public double MaxRelativePressureHpa { get; set; }
+    public double MaxRelativePressure { get; set; }
+    public DateTime MaxRelativePressureAt { get; set; }
     [Column(TypeName = "decimal(6,2)")]
-    public double MinRelativePressureHpa { get; set; }
+    public double MinRelativePressure { get; set; }
+    public DateTime MinRelativePressureAt { get; set; }
     [Column(TypeName = "decimal(6,2)")]
-    public double AverageRelativePressureHpa { get; set; }
+    public double AverageRelativePressure { get; set; }
 
     [Column(TypeName = "decimal(6,2)")]
-    public double MaxSolarRadiationWm2 { get; set; }
+    public double MaxSolarRadiation { get; set; }
+    public DateTime MaxSolarRadiationAt { get; set; }
     [Column(TypeName = "decimal(6,2)")]
-    public double MinSolarRadiationWm2 { get; set; }
+    public double MinSolarRadiation { get; set; }
+    public DateTime MinSolarRadiationAt { get; set; }
     [Column(TypeName = "decimal(6,2)")]
-    public double AverageSolarRadiationWm2 { get; set; }
+    public double AverageSolarRadiation { get; set; }
 
     public int MaxUVI { get; set; }
+    public DateTime MaxUVIAt { get; set; }
     public int MinUVI { get; set; }
+    public DateTime MinUVIAt { get; set; }
     public int AverageUVI { get; set; }
 
-    [Column(TypeName = "decimal(6,2)")]
-    public double MaxRainPerHourMm { get; set; }
-    [Column(TypeName = "decimal(6,2)")]
-    public double MinRainPerHourMm { get; set; }
-    [Column(TypeName = "decimal(6,2)")]
-    public double AverageRainPerHourMm { get; set; }
-
-    [Column(TypeName = "decimal(6,2)")]
-    public double MaxRainEpisodeMm { get; set; }
-    [Column(TypeName = "decimal(6,2)")]
-    public double MinRainEpisodeMm { get; set; }
-    [Column(TypeName = "decimal(6,2)")]
-    public double AverageRainEpisodeMm { get; set; }
-
     [Column(TypeName = "decimal(10,2)")]
-    public double AccumulatedRainMm { get; set; }
+    public double AccumulatedRain { get; set; }
 }
