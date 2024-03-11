@@ -1,7 +1,7 @@
 using AutoMapper;
 using SaballutsWeatherDomain.Models;
 using SaballutsWeatherPersistence.DbModels;
-using SaballutsWeatherRepositories.Abstractions;
+using SaballutsWeatherApplication.Common.Abstractions.Repositories;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,14 +26,14 @@ public class WeeklyWeatherStatsRepository(SaballutsWeatherContext context, IMapp
 
     public async Task<WeeklyWeatherStats> GetFirstAsync()
     {
-        var records = await _context.WeeklyWeatherStats.OrderBy(d => d.Date).FirstAsync();
+        var records = await _context.WeeklyWeatherStats.OrderBy(d => d.Date).FirstOrDefaultAsync();
         return _mapper.Map<WeeklyWeatherStats>(records);
     }
 
     public async Task<WeeklyWeatherStats> GetLastAsync()
     {
-        var records = await _context.WeeklyWeatherStats.OrderByDescending(d => d.Date).FirstAsync();
-        return _mapper.Map<WeeklyWeatherStats>(records);
+        var records = await _context.WeeklyWeatherStats.OrderByDescending(d => d.Date).FirstOrDefaultAsync();
+        return (records is null) ? null : _mapper.Map<WeeklyWeatherStats>(records);
     }
 
     private async Task<List<WeeklyWeatherStats>> SearchAsync(Expression<Func<DbWeeklyWeatherStats, bool>> filter)
@@ -41,6 +41,12 @@ public class WeeklyWeatherStatsRepository(SaballutsWeatherContext context, IMapp
 
     public async Task AddAsync(WeeklyWeatherStats weeklyWeatherStats)
             => await _context.WeeklyWeatherStats.AddAsync(_mapper.Map<DbWeeklyWeatherStats>(weeklyWeatherStats));
+
+    public async Task AddRangeAsync(List<WeeklyWeatherStats> weeklyWeatherStats)
+    {
+        var dbstats = _mapper.Map<List<DbWeeklyWeatherStats>>(weeklyWeatherStats);
+        await _context.WeeklyWeatherStats.AddRangeAsync(dbstats);
+    }
 
     public async Task SaveAsync()
             => await _context.SaveChangesAsync();

@@ -7,5 +7,5 @@ public interface IYearlyWeatherStatsService
 {
     Task<YearlyWeatherStats> GetByIDAsync(DateTime timestamp);
     Task<Result<YearlyWeatherStats>> CreateAsync(DateTime date);
-    Task<Result> GenerateMonthlyWeatherStatsSinceLastAsync();
+    Task<Result> GenerateYearlyWeatherStatsSinceLastAsync();
 }

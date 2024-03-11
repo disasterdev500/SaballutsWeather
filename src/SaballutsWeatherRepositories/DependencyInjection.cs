@@ -1,7 +1,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using SaballutsWeatherRepositories.Repositories;
-using SaballutsWeatherRepositories.Abstractions;
+using SaballutsWeatherApplication.Common.Abstractions.Repositories;
 
 namespace SaballutsWeatherRepositories;
 
