@@ -1,7 +1,7 @@
 using AutoMapper;
 using SaballutsWeatherDomain.Models;
 using SaballutsWeatherPersistence.DbModels;
-using SaballutsWeatherRepositories.Abstractions;
+using SaballutsWeatherApplication.Common.Abstractions.Repositories;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,8 +26,8 @@ public class YearlyWeatherStatsRepository(SaballutsWeatherContext context, IMapp
 
     public async Task<YearlyWeatherStats> GetLastAsync()
     {
-        var records = await _context.YearlyWeatherStats.OrderByDescending(d => d.Date).FirstAsync();
-        return _mapper.Map<YearlyWeatherStats>(records);
+        var records = await _context.YearlyWeatherStats.OrderByDescending(d => d.Date).FirstOrDefaultAsync();
+        return (records is null) ? null : _mapper.Map<YearlyWeatherStats>(records);
     }
 
     private async Task<List<YearlyWeatherStats>> SearchAsync(Expression<Func<DbYearlyWeatherStats, bool>> filter)
@@ -35,6 +35,12 @@ public class YearlyWeatherStatsRepository(SaballutsWeatherContext context, IMapp
 
     public async Task AddAsync(YearlyWeatherStats yearlyWeatherStats)
             => await _context.YearlyWeatherStats.AddAsync(_mapper.Map<DbYearlyWeatherStats>(yearlyWeatherStats));
+
+    public async Task AddRangeAsync(List<YearlyWeatherStats> yearlyWeatherStats)
+    {
+        var dbstats = _mapper.Map<List<DbYearlyWeatherStats>>(yearlyWeatherStats);
+        await _context.YearlyWeatherStats.AddRangeAsync(dbstats);
+    }
 
     public async Task SaveAsync()
             => await _context.SaveChangesAsync();

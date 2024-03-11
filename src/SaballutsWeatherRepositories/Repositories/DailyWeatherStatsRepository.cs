@@ -2,8 +2,9 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SaballutsWeatherDomain.Models;
 using SaballutsWeatherPersistence.DbModels;
-using SaballutsWeatherRepositories.Abstractions;
+using SaballutsWeatherApplication.Common.Abstractions.Repositories;
 using System.Linq.Expressions;
+//using System.Runtime.InteropServices;
 
 namespace SaballutsWeatherRepositories.Repositories;
 
@@ -20,13 +21,17 @@ public class DailyWeatherStatsRepository(SaballutsWeatherContext context, IMappe
 
     public async Task<DailyWeatherStats> GetFirstAsync()
     {
-        var records = await _context.DailyWeatherStats.OrderBy(d => d.Date).FirstAsync();
+        var records = await _context.DailyWeatherStats.OrderBy(d => d.Date).FirstOrDefaultAsync();
         return _mapper.Map<DailyWeatherStats>(records);
     }
 
     public async Task<DailyWeatherStats> GetLastAsync()
     {
-        var records = await _context.DailyWeatherStats.OrderByDescending(d => d.Date).FirstAsync();
+        var records = await _context.DailyWeatherStats.OrderByDescending(d => d.Date).FirstOrDefaultAsync();
+        if (records is null)
+        {
+            return null;
+        }
         return _mapper.Map<DailyWeatherStats>(records);
     }
 
@@ -37,10 +42,22 @@ public class DailyWeatherStatsRepository(SaballutsWeatherContext context, IMappe
     }
 
     private async Task<List<DailyWeatherStats>> SearchAsync(Expression<Func<DbDailyWeatherStats, bool>> filter)
-            => _mapper.Map<List<DailyWeatherStats>>(await _context.DailyWeatherStats.Where(filter).ToListAsync());
+    {
+        var records = await _context.DailyWeatherStats.Where(filter).ToListAsync();
+        return (records is null) ? null : _mapper.Map<List<DailyWeatherStats>>(records);
+    }
 
     public async Task AddAsync(DailyWeatherStats dailyWeatherStats)
-            => await _context.DailyWeatherStats.AddAsync(_mapper.Map<DbDailyWeatherStats>(dailyWeatherStats));
+    {
+        var dbstats = _mapper.Map<DbDailyWeatherStats>(dailyWeatherStats);
+        await _context.DailyWeatherStats.AddAsync(dbstats);
+    }
+
+    public async Task AddRangeAsync(List<DailyWeatherStats> dailyWeatherStats)
+    {
+        var dbstats = _mapper.Map<List<DbDailyWeatherStats>>(dailyWeatherStats);
+        await _context.DailyWeatherStats.AddRangeAsync(dbstats);
+    }
 
     public async Task SaveAsync()
             => await _context.SaveChangesAsync();

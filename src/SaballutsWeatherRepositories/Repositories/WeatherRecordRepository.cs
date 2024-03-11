@@ -1,7 +1,7 @@
 using AutoMapper;
 using SaballutsWeatherDomain.Models;
 using SaballutsWeatherPersistence.DbModels;
-using SaballutsWeatherRepositories.Abstractions;
+using SaballutsWeatherApplication.Common.Abstractions.Repositories;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,14 +26,14 @@ public class WeatherRecordsRepository(SaballutsWeatherContext context, IMapper m
 
     public async Task<WeatherRecord> GetFirstAsync()
     {
-        var records = await _context.WeatherRecords.OrderBy(d => d.Date).FirstAsync();
+        var records = await _context.WeatherRecords.OrderBy(d => d.Date).FirstOrDefaultAsync();
         return _mapper.Map<WeatherRecord>(records);
     }
 
     public async Task<WeatherRecord> GetLastAsync()
     {
-        var records = await _context.WeatherRecords.OrderByDescending(d => d.Date).FirstAsync();
-        return _mapper.Map<WeatherRecord>(records);
+        var records = await _context.WeatherRecords.OrderByDescending(d => d.Date).FirstOrDefaultAsync();
+        return (records is null) ? null : _mapper.Map<WeatherRecord>(records);
     }
 
     private async Task<List<WeatherRecord>> SearchAsync(Expression<Func<DbWeatherRecord, bool>> filter)
