@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SaballutsWeatherApplication\SaballutsWeatherApplication.csproj" />
     <ProjectReference Include="..\SaballutsWeatherPersistence\SaballutsWeatherPersistence.csproj" />
+    <ProjectReference Include="..\SaballutsWeatherRepositories\SaballutsWeatherRepositories.csproj" />
     <ProjectReference Include="..\SaballutsWeatherDomain\SaballutsWeatherDomain.csproj" />
   </ItemGroup>
 
