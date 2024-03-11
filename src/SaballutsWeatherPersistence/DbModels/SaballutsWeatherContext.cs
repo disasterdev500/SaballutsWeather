@@ -6,6 +6,13 @@ public class SaballutsWeatherContext(DbContextOptions<SaballutsWeatherContext> o
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<DbWeatherRecord>().ToTable("WeatherRecord");
+        modelBuilder.Entity<DbDailyWeatherStats>().ToTable("DailyWeatherStats");
+        modelBuilder.Entity<DbWeeklyWeatherStats>().ToTable("WeeklyWeatherStats");
+        modelBuilder.Entity<DbMonthlyWeatherStats>().ToTable("MonthlyWeatherStats");
+        modelBuilder.Entity<DbYearlyWeatherStats>().ToTable("YearlyWeatherStats");
+
+
         _ = modelBuilder.Entity<DbWeatherRecord>()
             .Property(e => e.Date)
             .HasConversion(new UtcDateTimeConverter());
@@ -21,6 +28,8 @@ public class SaballutsWeatherContext(DbContextOptions<SaballutsWeatherContext> o
         _ = modelBuilder.Entity<DbYearlyWeatherStats>()
             .Property(e => e.Date)
             .HasConversion(new UtcDateTimeConverter());
+
+        base.OnModelCreating(modelBuilder);
     }
 
     public DbSet<DbWeatherRecord> WeatherRecords { get; set; }
