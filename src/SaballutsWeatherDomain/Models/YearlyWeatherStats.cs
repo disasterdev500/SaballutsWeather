@@ -15,7 +15,7 @@ public class YearlyWeatherStats
             throw new ArgumentException("Monthly weather stats list is null or empty.");
         }
 
-        Id = monthlyWeatherStats[0].Id.GetFirstDayOfYear();
+        Id = monthlyWeatherStats[0].Id.GetLastDayOfYear();
 
         MaxIndoorTemperature = monthlyWeatherStats.Max(r => r.MaxIndoorTemperature);
         MaxIndoorTemperatureAt = monthlyWeatherStats.OrderByDescending(r => r.MaxIndoorTemperature).First().MaxIndoorTemperatureAt;
