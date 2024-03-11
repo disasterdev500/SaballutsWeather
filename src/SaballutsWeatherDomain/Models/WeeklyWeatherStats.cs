@@ -15,7 +15,7 @@ public class WeeklyWeatherStats
             throw new ArgumentException("Daily weather stats list is null or empty.");
         }
 
-        Id = dailyWeatherStats[0].Id.GetFirstDayOfYear();
+        Id = dailyWeatherStats[0].Id.GetFirstDayOfWeek();
 
         MaxIndoorTemperature = dailyWeatherStats.Max(r => r.MaxIndoorTemperature);
         MaxIndoorTemperatureAt = dailyWeatherStats.OrderByDescending(r => r.MaxIndoorTemperature).First().MaxIndoorTemperatureAt;
