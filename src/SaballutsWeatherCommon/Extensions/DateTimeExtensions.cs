@@ -14,9 +14,19 @@ public static class DateTimeExtensions
         return date.AddDays(-1 * (date.Day - 1)).Date;
     }
 
+    public static DateTime GetLastDayOfMonth(this DateTime date)
+    {
+        return date.GetFirstDayOfMonth().AddMonths(1).AddDays(-1).Date;
+    }
+
     public static DateTime GetFirstDayOfYear(this DateTime date)
     {
         return date.AddDays(-1 * (date.DayOfYear - 1)).Date;
+    }
+
+    public static DateTime GetLastDayOfYear(this DateTime date)
+    {
+        return date.GetFirstDayOfYear().AddYears(1).AddDays(-1).Date;
     }
 
 }
