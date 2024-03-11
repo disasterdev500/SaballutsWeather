@@ -1,8 +1,8 @@
 using Quartz;
 using SaballutsWeatherJobs.Jobs;
 using SaballutsWeatherApplication;
-using SaballutsWeatherRepositories;
 using SaballutsWeatherPersistence;
+using SaballutsWeatherRepositories;
 using SaballutsWeatherUtilities;
 
 internal class Program
