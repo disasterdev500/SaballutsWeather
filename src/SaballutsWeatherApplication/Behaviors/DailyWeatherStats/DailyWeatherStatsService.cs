@@ -1,7 +1,7 @@
 using SaballutsWeatherApplication.Abstractions;
 using SaballutsWeatherDomain.Models;
 using SaballutsWeatherDomain.Core;
-using SaballutsWeatherRepositories.Abstractions;
+using SaballutsWeatherApplication.Common.Abstractions.Repositories;
 
 namespace SaballutsWeatherApplication.Behaviors;
 
@@ -44,7 +44,7 @@ public class DailyWeatherStatsService(IDailyWeatherStatsRepository dailyWeatherS
     {
         DateTime initialDate;
         var stats = await _dailyWeatherStatsRepository.GetLastAsync();
-        if (stats is null)
+        if (stats is null || stats.Id.Equals(default))
         {
             var firstRecord = await _weatherRecordsRepository.GetFirstAsync();
             if (firstRecord is null)
@@ -66,18 +66,47 @@ public class DailyWeatherStatsService(IDailyWeatherStatsRepository dailyWeatherS
 
         var finalDate = lastRecord.Date.Date;
 
-        while (initialDate < finalDate)
+        List<DailyWeatherStats> dailyWeatherStatsList = new();
+        for (; initialDate < finalDate; initialDate = initialDate.AddDays(1))
         {
-            var result = await CreateAsync(initialDate);
-            if (result.IsFailure)
+            var dailyWeatherStats = await GenerateDailyWeatherStatAsync(initialDate);
+            if (dailyWeatherStats is null)
             {
-                //TODO: What to do in this case? Error? Exception? Group errors?
-                System.Console.WriteLine($"{initialDate}: Daily Weather Stats not created: {result.Error}");
+                System.Console.WriteLine($"dailyWeatherStats: {dailyWeatherStats}");
+                continue;
             }
-
-            initialDate = initialDate.AddDays(1);
+            dailyWeatherStatsList.Add(dailyWeatherStats);
         }
 
+        await _dailyWeatherStatsRepository.AddRangeAsync(dailyWeatherStatsList);
+        await _dailyWeatherStatsRepository.SaveAsync();
+
         return Result.Ok();
+    }
+
+    private async Task<DailyWeatherStats> GenerateDailyWeatherStatAsync(DateTime date)
+    {
+        if (date.Date >= DateTime.UtcNow.Date)
+        {
+            throw new ArgumentException();
+        }
+
+        var initialDate = date.Date;
+
+        var stats = await _dailyWeatherStatsRepository.GetById(date.Date);
+        if (stats is not null)
+        {
+            return null;
+        }
+
+        var records = await _weatherRecordsRepository.GetByIntervalTimeAsync(initialDate, initialDate.AddDays(1));
+        if (records is null)
+        {
+            return null;
+        }
+
+        DailyWeatherStats dailyWeatherStats = new(records);
+
+        return dailyWeatherStats;
     }
 }

@@ -1,7 +1,7 @@
 using SaballutsWeatherApplication.Abstractions;
 using SaballutsWeatherDomain.Models;
 using SaballutsWeatherDomain.Core;
-using SaballutsWeatherRepositories.Abstractions;
+using SaballutsWeatherApplication.Common.Abstractions.Repositories;
 using SaballutsWeatherCommon.Extensions;
 
 namespace SaballutsWeatherApplication.Behaviors;
@@ -61,18 +61,42 @@ public class MonthlyWeatherStatsService(IMonthlyWeatherStatsRepository monthlyWe
 
         var finalDate = lastDailyStats.Id.GetFirstDayOfMonth();
 
-        while (initialDate < finalDate)
+        List<MonthlyWeatherStats> monthlyWeatherStatsList = new();
+        for (; initialDate < finalDate; initialDate = initialDate.AddMonths(1))
         {
-            var result = await CreateAsync(initialDate);
-            if (result.IsFailure)
+            var monthlyWeatherStats = await GenerateMonthlyWeatherStatAsync(initialDate);
+            if (monthlyWeatherStats is null)
             {
-                //TODO: What to do in this case? Error? Exception? Group errors?
-                System.Console.WriteLine($"{initialDate}: Monthly Weather Stats not created: {result.Error}");
+                continue;
             }
-
-            initialDate = initialDate.AddMonths(1);
+            monthlyWeatherStatsList.Add(monthlyWeatherStats);
         }
 
+        await _monthlyWeatherStatsRepository.AddRangeAsync(monthlyWeatherStatsList);
+        await _monthlyWeatherStatsRepository.SaveAsync();
+
+
         return Result.Ok();
+    }
+
+
+    private async Task<MonthlyWeatherStats> GenerateMonthlyWeatherStatAsync(DateTime date)
+    {
+        if (date.Date >= DateTime.UtcNow.GetFirstDayOfMonth())
+        {
+            throw new ArgumentException();
+        }
+
+        var firstDayOfMonth = date.GetFirstDayOfMonth();
+
+        var dailyStats = await _dailyWeatherStatsRepository.GetByIntervalTimeAsync(firstDayOfMonth, firstDayOfMonth.AddMonths(1));
+        if (dailyStats is null || dailyStats.Count == 0)
+        {
+            return null;
+        }
+
+        MonthlyWeatherStats monthlyWeatherStats = new(dailyStats);
+
+        return monthlyWeatherStats;
     }
 }
