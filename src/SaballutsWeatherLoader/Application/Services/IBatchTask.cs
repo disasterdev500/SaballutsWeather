@@ -1,6 +1,6 @@
 
 
-namespace SaballutsWeatherApplication.Common.Abstractions.Infrastructure;
+namespace SaballutsWeatherLoader.Application.Services;
 
 public interface IBatchTask<T>
 {
