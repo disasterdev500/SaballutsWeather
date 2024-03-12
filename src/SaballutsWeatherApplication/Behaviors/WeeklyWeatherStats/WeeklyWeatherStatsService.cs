@@ -1,6 +1,6 @@
 using SaballutsWeatherApplication.Abstractions;
 using SaballutsWeatherDomain.Models;
-using SaballutsWeatherRepositories.Abstractions;
+using SaballutsWeatherApplication.Common.Abstractions.Repositories;
 using SaballutsWeatherDomain.Core;
 using SaballutsWeatherCommon.Extensions;
 
@@ -62,18 +62,41 @@ public class WeeklyWeatherStatsService(IWeeklyWeatherStatsRepository weeklyWeath
 
         var finalDate = lastDailyStats.Id.GetFirstDayOfWeek();
 
-        while (initialDate < finalDate)
+        List<WeeklyWeatherStats> weeklyWeatherStatsList = new();
+        for (; initialDate < finalDate; initialDate = initialDate.AddDays(7))
         {
-            var result = await CreateAsync(initialDate);
-            if (result.IsFailure)
+            var weeklyWeatherStats = await GenerateWeeklyWeatherStatAsync(initialDate);
+            if (weeklyWeatherStats is null)
             {
-                //TODO: What to do in this case? Error? Exception? Group errors?
-                System.Console.WriteLine($"{initialDate}: Weekly Weather Stats not created: {result.Error}");
+                continue;
             }
-
-            initialDate = initialDate.AddDays(7);
+            weeklyWeatherStatsList.Add(weeklyWeatherStats);
         }
 
+        await _weeklyWeatherStatsRepository.AddRangeAsync(weeklyWeatherStatsList);
+        await _weeklyWeatherStatsRepository.SaveAsync();
+
         return Result.Ok();
+    }
+
+    private async Task<WeeklyWeatherStats> GenerateWeeklyWeatherStatAsync(DateTime date)
+    {
+        if (date.Date >= DateTime.UtcNow.GetFirstDayOfWeek())
+        {
+            throw new ArgumentException();
+        }
+
+        var firstDayOfWeek = date.GetFirstDayOfWeek();
+        var lastDayOfWeek = firstDayOfWeek.AddDays(7);
+
+        var dailyStats = await _dailyWeatherStatsRepository.GetByIntervalTimeAsync(firstDayOfWeek, lastDayOfWeek);
+        if (dailyStats is null || dailyStats.Count == 0)
+        {
+            return null;
+        }
+
+        WeeklyWeatherStats weeklyWeatherStats = new(dailyStats);
+
+        return weeklyWeatherStats;
     }
 }

@@ -1,6 +1,6 @@
 using SaballutsWeatherApplication.Abstractions;
 using SaballutsWeatherDomain.Models;
-using SaballutsWeatherRepositories.Abstractions;
+using SaballutsWeatherApplication.Common.Abstractions.Repositories;
 using SaballutsWeatherDomain.Core;
 using SaballutsWeatherCommon.Extensions;
 
@@ -35,7 +35,7 @@ public class YearlyWeatherStatsService(IYearlyWeatherStatsRepository yearlyWeath
         return Result.Ok(yearlyWeatherStats);
     }
 
-    public async Task<Result> GenerateMonthlyWeatherStatsSinceLastAsync()
+    public async Task<Result> GenerateYearlyWeatherStatsSinceLastAsync()
     {
         DateTime initialDate;
         var stats = await _yearlyWeatherStatsRepository.GetLastAsync();
@@ -61,18 +61,40 @@ public class YearlyWeatherStatsService(IYearlyWeatherStatsRepository yearlyWeath
 
         var finalDate = lastMonthlyStats.Id.GetFirstDayOfYear();
 
-        while (initialDate < finalDate)
+        List<YearlyWeatherStats> yearlyWeatherStatsList = new();
+        for (; initialDate < finalDate; initialDate = initialDate.AddYears(1))
         {
-            var result = await CreateAsync(initialDate);
-            if (result.IsFailure)
+            var yearlyWeatherStats = await GenerateYearlyWeatherStatAsync(initialDate);
+            if (yearlyWeatherStats is null)
             {
-                //TODO: What to do in this case? Error? Exception? Group errors?
-                System.Console.WriteLine($"{initialDate}: Yearly Weather Stats not created: {result.Error}");
+                continue;
             }
-
-            initialDate = initialDate.AddYears(1);
+            yearlyWeatherStatsList.Add(yearlyWeatherStats);
         }
 
+        await _yearlyWeatherStatsRepository.AddRangeAsync(yearlyWeatherStatsList);
+        await _yearlyWeatherStatsRepository.SaveAsync();
+
         return Result.Ok();
+    }
+
+    private async Task<YearlyWeatherStats> GenerateYearlyWeatherStatAsync(DateTime date)
+    {
+        if (date.Date >= DateTime.UtcNow.GetFirstDayOfYear())
+        {
+            throw new ArgumentException();
+        }
+
+        var firstDayOfYear = date.GetFirstDayOfYear();
+
+        var monthlylyStats = await _monthlyWeatherStatsRepository.GetByIntervalTimeAsync(firstDayOfYear, firstDayOfYear.AddYears(1));
+        if (monthlylyStats is null || monthlylyStats.Count == 0)
+        {
+            return null;
+        }
+
+        YearlyWeatherStats yearlyWeatherStats = new(monthlylyStats);
+
+        return yearlyWeatherStats;
     }
 }
