@@ -26,7 +26,7 @@ public class WeatherRecordService(IWeatherRecordsRepository weatherRecordReposit
 
     public async Task AddRangeAsync(List<WeatherRecord> weatherRecords)
     {
-        await _weatherRecordRepository.AddRangeAsync(weatherRecords);
+        await _weatherRecordRepository.BulkUpsertAsync(weatherRecords);
         await _weatherRecordRepository.SaveAsync();
     }
 }

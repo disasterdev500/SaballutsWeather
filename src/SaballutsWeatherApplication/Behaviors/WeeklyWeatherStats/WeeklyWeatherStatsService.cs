@@ -73,7 +73,7 @@ public class WeeklyWeatherStatsService(IWeeklyWeatherStatsRepository weeklyWeath
             weeklyWeatherStatsList.Add(weeklyWeatherStats);
         }
 
-        await _weeklyWeatherStatsRepository.AddRangeAsync(weeklyWeatherStatsList);
+        await _weeklyWeatherStatsRepository.BulkUpsertAsync(weeklyWeatherStatsList);
         await _weeklyWeatherStatsRepository.SaveAsync();
 
         return Result.Ok();
