@@ -9,5 +9,6 @@ public interface IYearlyWeatherStatsRepository
     Task<YearlyWeatherStats> GetLastAsync();
     Task AddAsync(YearlyWeatherStats yearlyWeatherStats);
     Task AddRangeAsync(List<YearlyWeatherStats> yearlyWeatherStats);
+    Task BulkUpsertAsync(IEnumerable<YearlyWeatherStats> yearlyWeatherStats);
     Task SaveAsync();
 }

@@ -10,5 +10,6 @@ public interface IWeatherRecordsRepository
     Task<WeatherRecord> GetFirstAsync();
     Task AddAsync(WeatherRecord weatherRecord);
     Task AddRangeAsync(IEnumerable<WeatherRecord> weatherRecords);
+    Task BulkUpsertAsync(IEnumerable<WeatherRecord> weatherRecords);
     Task SaveAsync();
 }

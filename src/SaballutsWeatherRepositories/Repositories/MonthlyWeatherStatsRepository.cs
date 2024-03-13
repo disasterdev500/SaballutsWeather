@@ -4,6 +4,7 @@ using SaballutsWeatherDomain.Models;
 using SaballutsWeatherPersistence.DbModels;
 using SaballutsWeatherApplication.Common.Abstractions.Repositories;
 using System.Linq.Expressions;
+using EFCore.BulkExtensions;
 
 namespace SaballutsWeatherRepositories.Repositories;
 
@@ -50,6 +51,12 @@ public class MonthlyWeatherStatsRepository(SaballutsWeatherContext context, IMap
     {
         var dbstats = _mapper.Map<List<DbMonthlyWeatherStats>>(monthlyWeatherStats);
         await _context.MonthlyWeatherStats.AddRangeAsync(dbstats);
+    }
+
+    public async Task BulkUpsertAsync(IEnumerable<MonthlyWeatherStats> monthlyWeatherStats)
+    {
+        var dbWeatherRecords = _mapper.Map<IEnumerable<DbMonthlyWeatherStats>>(monthlyWeatherStats);
+        await _context.BulkInsertOrUpdateAsync(dbWeatherRecords);
     }
 
     public async Task SaveAsync()
