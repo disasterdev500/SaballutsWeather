@@ -13,7 +13,7 @@ public class BatchProcessor(IBatchTask<WeatherRecord> batchTask, IOptions<BatchP
         System.Console.WriteLine($"numworkers: {_options.Value.NumWorkers} --- numItems: {_options.Value.NumItems}");
 
         var semaphore = new SemaphoreSlim(_options.Value.NumWorkers);
-        var numTasks = elements.Count / _options.Value.NumItems;
+        var numTasks = (int)Math.Ceiling((decimal)elements.Count / _options.Value.NumItems);
 
         await Task.WhenAll(Enumerable.Range(0, numTasks).Select(async i =>
         {
