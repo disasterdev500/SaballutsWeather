@@ -7,7 +7,7 @@ namespace SaballutsWeatherLoader.Utilities.Mappers;
 
 public class CsvMappingProfile : Profile
 {
-    const string format = "yyyy/M/d H:mm";
+    const string format = "yyyy-MM-dd HH:mm:ss";
 
     public CsvMappingProfile()
     {

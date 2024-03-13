@@ -50,33 +50,15 @@ public class Loader : ILoader
             csvWeatherRecords.AddRange(Read(filePath));
         }
 
+        csvWeatherRecords = ConvertTimeStampsToUTC(csvWeatherRecords);
         var weatherRecords = new List<WeatherRecord>();
         foreach (var csvWeatherRecord in csvWeatherRecords)
         {
-            try
-            {
-                weatherRecords.Add(_mapper.Map<WeatherRecord>(csvWeatherRecord));
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
+            weatherRecords.Add(_mapper.Map<WeatherRecord>(csvWeatherRecord));
         }
 
-        var groupedData = weatherRecords
-            .GroupBy(item => item.Date)
-            .Where(group => group.Count() > 1);
-
-        foreach (var group in groupedData)
-        {
-            DateTime baseDate = group.Key; // Take the date from the group
-
-            foreach (var item in group.Skip(1)) // Skip the original item in the group
-            {
-                // Add 5 seconds to the Date property for subsequent items
-                item.Date = baseDate.AddSeconds(5);
-            }
-        }
+        // Remove duplicates
+        weatherRecords = weatherRecords.GroupBy(x => x.Date).Select(x => x.Last()).ToList();
 
         await _batchProcessor.ProcessAsync(weatherRecords);
 
@@ -88,20 +70,23 @@ public class Loader : ILoader
         }
 
         var weeklyResult = await _weeklyWeatherStatsService.GenerateWeeklyWeatherStatsSinceLastAsync();
-        if (dailyResult.IsFailure)
+        if (weeklyResult.IsFailure)
         {
+            System.Console.WriteLine(weeklyResult.Error);
             return;
         }
 
         var monthlyResult = await _monthlyWeatherStatsService.GenerateMonthlyWeatherStatsSinceLastAsync();
-        if (dailyResult.IsFailure)
+        if (monthlyResult.IsFailure)
         {
+            System.Console.WriteLine(monthlyResult.Error);
             return;
         }
 
         var yearlyResult = await _yearlyWeatherStatsService.GenerateYearlyWeatherStatsSinceLastAsync();
-        if (dailyResult.IsFailure)
+        if (yearlyResult.IsFailure)
         {
+            System.Console.WriteLine(yearlyResult.Error);
             return;
         }
     }
@@ -121,8 +106,10 @@ public class Loader : ILoader
         var filesPath = Directory.GetFiles(dataDirectoryPath).Where(f => f.EndsWith(FILE_EXTENSION) || f.EndsWith(FILE_EXTENSION.ToUpper())).ToArray();
         if (filesPath.Length == 0)
         {
-            return filesPath;
+            throw new FileNotFoundException("");
         }
+
+        Array.Sort(filesPath);
 
         return filesPath;
     }
@@ -150,5 +137,58 @@ public class Loader : ILoader
         }
 
         return records;
+    }
+
+    private List<CsvWeatherRecord> ConvertTimeStampsToUTC(List<CsvWeatherRecord> csvWeatherRecords)
+    {
+        const string format = "yyyy/M/d H:mm";
+        var timeZoneSpain = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
+
+        DateTime lastAmbiguousDateTime = default;
+        bool isFirstRound = true;
+
+        foreach (var csvRecord in csvWeatherRecords)
+        {
+            var originalDateStr = csvRecord.Timestamp;
+            var finalDateStr = "";
+            if (DateTime.TryParseExact(originalDateStr, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var originalParsedDateTime))
+            {
+                var inPlus1 = originalParsedDateTime;
+                var inUTC = TimeZoneInfo.ConvertTime(originalParsedDateTime, timeZoneSpain, TimeZoneInfo.Utc);
+                var isDST = timeZoneSpain.IsDaylightSavingTime(originalParsedDateTime);
+                var isAmbiguous = timeZoneSpain.IsAmbiguousTime(originalParsedDateTime);
+                var finalParsedDateTime = originalParsedDateTime.AddHours(-1);
+                if (isDST) // if is in DST, we should substract an extra hour
+                {
+                    finalParsedDateTime = finalParsedDateTime.AddHours(-1);
+                }
+
+                if (!isAmbiguous) // if is not an ambiguous date, we restart ambiguous related vars
+                {
+                    lastAmbiguousDateTime = default;
+                    isFirstRound = true;
+                }
+
+                if (isAmbiguous) // if is an ambiguous date
+                {
+                    if (originalParsedDateTime < lastAmbiguousDateTime) // if original date is minor than last ambiguous date means that it is the second hour of the ambiguous date range
+                    {
+                        isFirstRound = false;
+                    }
+
+                    if (isFirstRound) // if is the first round, we should substract an extra hour
+                    {
+                        finalParsedDateTime = finalParsedDateTime.AddHours(-1);
+                    }
+
+                    lastAmbiguousDateTime = originalParsedDateTime;
+                }
+
+                finalDateStr = finalParsedDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+                csvRecord.Timestamp = finalDateStr;
+            }
+        }
+
+        return csvWeatherRecords;
     }
 }
