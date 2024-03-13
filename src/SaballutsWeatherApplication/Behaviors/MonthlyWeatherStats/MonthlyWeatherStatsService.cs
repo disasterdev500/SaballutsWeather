@@ -72,7 +72,7 @@ public class MonthlyWeatherStatsService(IMonthlyWeatherStatsRepository monthlyWe
             monthlyWeatherStatsList.Add(monthlyWeatherStats);
         }
 
-        await _monthlyWeatherStatsRepository.AddRangeAsync(monthlyWeatherStatsList);
+        await _monthlyWeatherStatsRepository.BulkUpsertAsync(monthlyWeatherStatsList);
         await _monthlyWeatherStatsRepository.SaveAsync();
 
 

@@ -78,7 +78,7 @@ public class DailyWeatherStatsService(IDailyWeatherStatsRepository dailyWeatherS
             dailyWeatherStatsList.Add(dailyWeatherStats);
         }
 
-        await _dailyWeatherStatsRepository.AddRangeAsync(dailyWeatherStatsList);
+        await _dailyWeatherStatsRepository.BulkUpsertAsync(dailyWeatherStatsList);
         await _dailyWeatherStatsRepository.SaveAsync();
 
         return Result.Ok();
@@ -100,7 +100,7 @@ public class DailyWeatherStatsService(IDailyWeatherStatsRepository dailyWeatherS
         }
 
         var records = await _weatherRecordsRepository.GetByIntervalTimeAsync(initialDate, initialDate.AddDays(1));
-        if (records is null)
+        if (records is null || records.Count == 0)
         {
             return null;
         }
