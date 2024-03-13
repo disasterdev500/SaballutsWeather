@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SaballutsWeatherPersistence.DbModels;
@@ -11,9 +12,11 @@ using SaballutsWeatherPersistence.DbModels;
 namespace SaballutsWeatherPersistence.Migrations
 {
     [DbContext(typeof(SaballutsWeatherContext))]
-    partial class SaballutsWeatherContextModelSnapshot : ModelSnapshot
+    [Migration("20240313111746_Add Raw Weather Record")]
+    partial class AddRawWeatherRecord
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
